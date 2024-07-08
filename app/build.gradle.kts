@@ -46,6 +46,18 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
+    //view model
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    // lifecycle
+    implementation(libs.lifecycle.livedata.ktx)
+
+    //livedata
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    //coroutines
+    implementation(libs.kotlinx.coroutines.android)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
