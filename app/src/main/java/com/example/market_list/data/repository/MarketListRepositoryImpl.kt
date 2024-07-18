@@ -5,13 +5,15 @@ import com.example.market_list.data.entity.MarketListEntity
 import com.example.market_list.domain.model.ItemListDomain
 import com.example.market_list.domain.model.MarketListDomain
 import com.example.market_list.domain.repository.MarketListRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.*
 
 class MarketListRepositoryImpl(private val dao: MarketListDao) : MarketListRepository {
-    override suspend fun getAllLists(): List<MarketListDomain> = withContext(Dispatchers.IO) {
-        dao.getAllLists().map { it.toDomain() }
-    }
+    override suspend fun getAllLists():
+            Flow<List<MarketListDomain>> =
+        dao.getAllLists().map { list ->
+            list.map { it.toDomain() }
+        }
+
 
     override suspend fun insertList(list: MarketListDomain) {
         dao.insertList(list.toEntity())
@@ -25,7 +27,7 @@ class MarketListRepositoryImpl(private val dao: MarketListDao) : MarketListRepos
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAllProducts(): List<ItemListDomain> {
+    override suspend fun getAllProducts(): Flow<List<ItemListDomain>> {
         TODO("Not yet implemented")
     }
 
