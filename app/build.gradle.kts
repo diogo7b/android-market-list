@@ -40,24 +40,7 @@ android {
 }
 
 dependencies {
-
-    //room implements
-    implementation(libs.androidx.room.runtime)
-    ksp(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
-
-    //view model
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-
-    // lifecycle
-    implementation(libs.lifecycle.livedata.ktx)
-
-    //livedata
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-
-    //coroutines
-    implementation(libs.kotlinx.coroutines.android)
-
+    // Default Dependencies
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -66,4 +49,10 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    // Extra Dependencies
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
 }
