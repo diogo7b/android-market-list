@@ -19,6 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:autofillHints="none"
+        android:inputType="textCapWords"
         android:hint="@string/hint_new_list"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_dialog_title" />
