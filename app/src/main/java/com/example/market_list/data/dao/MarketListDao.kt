@@ -6,18 +6,19 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.market_list.data.entity.MarketListEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MarketListDao {
     @Query("SELECT * FROM marketList")
-    suspend fun getAllLists(): List<MarketListEntity>
+    fun getAllLists(): Flow<List<MarketListEntity>>
 
     @Insert
-    suspend fun insertList(list: MarketListEntity)
+    fun insertList(list: MarketListEntity)
 
     @Update
-    suspend fun updateList(list: MarketListEntity)
+    fun updateList(list: MarketListEntity)
 
     /*@Delete
-    suspend fun deleteList(id: Int)*/
+    fun deleteList(id: Int)*/
 }
