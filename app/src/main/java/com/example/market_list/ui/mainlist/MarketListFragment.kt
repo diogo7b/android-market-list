@@ -27,9 +27,11 @@ class MarketListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         setupListener()
-        setupObserveStates()
+       // setupObserveStates()
     }
+
 
     private fun setupObserveStates() {
         TODO("Not yet implemented")
@@ -39,11 +41,11 @@ class MarketListFragment : Fragment() {
         setFragmentResultListener(MarketListMainDialog.FRAGMENT_RESULT) { requestKey, bundle ->
             val name = bundle.getString(MarketListMainDialog.EDIT_TEXT_VALUE) ?: ""
             viewModel.insertList(name)
-
-            binding.fabAddList.setOnClickListener {
-                handleShowDialog()
-            }
         }
+
+       /* binding.fabAddList.setOnClickListener {
+            handleShowDialog()
+        }*/
     }
 
     private fun handleShowDialog() {
