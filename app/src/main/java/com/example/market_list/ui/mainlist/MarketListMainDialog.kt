@@ -3,7 +3,6 @@ package com.example.market_list.ui.mainlist
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
@@ -29,7 +28,8 @@ class MarketListMainDialog : DialogFragment() {
                 .setView(binding.root)
                 .setPositiveButton("Confirmar") { _, _ ->
                     setFragmentResult(
-                        FRAGMENT_RESULT, bundleOf(
+                        FRAGMENT_RESULT,
+                        bundleOf(
                             EDIT_TEXT_VALUE to binding.etTitleList.text.toString()
                         )
                     )
@@ -50,7 +50,6 @@ class MarketListMainDialog : DialogFragment() {
             tag: String = MarketListMainDialog::class.simpleName.toString()
         ) {
             MarketListMainDialog().show(fragmentManager, tag)
-            Log.d("teste-dialog", "press handle dialog")
         }
     }
 }

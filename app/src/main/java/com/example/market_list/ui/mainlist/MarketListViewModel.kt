@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.market_list.data.repository.MarketListRepositoryImpl
-import com.example.market_list.domain.model.MarketListDomain
 import com.example.market_list.domain.useCases.GetAllListsUseCase
 import com.example.market_list.domain.useCases.InsertListUseCase
 import db
@@ -51,7 +50,7 @@ class MarketListViewModel(
     }
 
     fun insertList(listName: String) = viewModelScope.launch {
-        insertListUseCase(MarketListDomain(listName = listName))
+        insertListUseCase(listName)
     }
 
     @Suppress("UNCHECKED_CAST")

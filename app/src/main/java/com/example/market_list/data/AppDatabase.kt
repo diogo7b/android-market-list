@@ -9,7 +9,7 @@ import com.example.market_list.data.entity.MarketListEntity
     entities = [
         MarketListEntity::class,
     ],
-    version = 1
+    version = 2
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun marketListDao(): MarketListDao

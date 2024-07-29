@@ -43,9 +43,9 @@ class MarketListFragment : Fragment() {
             viewModel.insertList(name)
         }
 
-       /* binding.fabAddList.setOnClickListener {
+        binding.fabAddList.setOnClickListener {
             handleShowDialog()
-        }*/
+        }
     }
 
     private fun handleShowDialog() {
