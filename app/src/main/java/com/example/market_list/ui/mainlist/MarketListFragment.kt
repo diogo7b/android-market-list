@@ -1,19 +1,29 @@
 package com.example.market_list.ui.mainlist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import com.example.market_list.databinding.FragmentMarketListBinding
+import com.example.market_list.domain.model.MarketListDomain
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 class MarketListFragment : Fragment() {
+
     private val viewModel: MarketListViewModel by viewModels {
         MarketListViewModel.Factory()
     }
     private lateinit var binding: FragmentMarketListBinding
+    private val adapter by lazy { MarketListAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,12 +39,66 @@ class MarketListFragment : Fragment() {
 
 
         setupListener()
-       // setupObserveStates()
+        setupObserveStates()
     }
 
 
     private fun setupObserveStates() {
-        TODO("Not yet implemented")
+        viewModel.state.observe(viewLifecycleOwner) {
+            when (it) {
+                MarketListState.Empty -> {
+                    emptyState()
+                    Log.d("MarketListFragment", "Empty")
+                }
+
+                is MarketListState.Error -> {
+                    errorState()
+                    Log.d("MarketListFragment", "Error")
+                }
+
+                MarketListState.Loading -> {
+                    loadingState()
+                    Log.d("MarketListFragment", "Loading")
+                }
+
+                is MarketListState.Success -> {
+                    successState(it.marketList)
+                    Log.d("MarketListFragment", it.marketList.toString())
+
+                }
+            }
+        }
+    }
+
+    private fun successState(marketLists: List<MarketListDomain>) {
+        binding.pbLoading.isVisible = false
+        binding.rcMarketLists.isVisible = true
+        binding.rcMarketLists.adapter = adapter
+        adapter.submitList(marketLists)
+    }
+
+    private fun emptyState() {
+        binding.pbLoading.isVisible = false
+        binding.rcMarketLists.isVisible = false
+        binding.tvTitleEmptyList.isVisible = true
+        Toast.makeText(
+            requireContext(),
+            "Sem receitas no momento",
+            Toast.LENGTH_LONG
+        ).show()
+    }
+
+    private fun errorState() {
+        binding.pbLoading.isVisible = false
+        binding.rcMarketLists.isVisible = false
+        binding.tvTitleEmptyList.isVisible = true
+        binding.tvTitleEmptyList.text = "Ocorreu um erro"
+    }
+
+    private fun loadingState() {
+        binding.pbLoading.isVisible = true
+        binding.rcMarketLists.isVisible = false
+        binding.tvTitleEmptyList.isVisible = false
     }
 
     private fun setupListener() {
@@ -50,5 +114,11 @@ class MarketListFragment : Fragment() {
 
     private fun handleShowDialog() {
         MarketListMainDialog.show(parentFragmentManager)
+    }
+
+    fun <T> Flow<T>.observe(owner: LifecycleOwner, observe: (T) -> Unit) {
+        owner.lifecycleScope.launch {
+            this@observe.collect(observe)
+        }
     }
 }

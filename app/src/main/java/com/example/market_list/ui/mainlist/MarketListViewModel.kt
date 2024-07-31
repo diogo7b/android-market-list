@@ -32,7 +32,7 @@ class MarketListViewModel(
         getAllLists()
     }
 
-    private fun getAllLists() = viewModelScope.launch(dispatcherIO) {
+    private fun getAllLists() = viewModelScope.launch {
         getAllListsUseCase()
             .flowOn(dispatcherIO)
             .onStart {
@@ -45,7 +45,6 @@ class MarketListViewModel(
                 } else {
                     _state.emit(MarketListState.Success(lists))
                 }
-
             }
     }
 
@@ -53,7 +52,7 @@ class MarketListViewModel(
         insertListUseCase(listName)
     }
 
-    @Suppress("UNCHECKED_CAST")
+
     class Factory : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(
             modelClass: Class<T>,
@@ -65,8 +64,7 @@ class MarketListViewModel(
             val getAllListsUseCase = GetAllListsUseCase(repository)
             val insertListUseCase = InsertListUseCase(repository)
 
-            return MarketListViewModel(getAllListsUseCase, insertListUseCase)
-                    as T
+            return MarketListViewModel(getAllListsUseCase, insertListUseCase) as T
         }
     }
 }
