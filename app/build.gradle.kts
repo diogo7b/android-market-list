@@ -59,5 +59,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.core.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     ksp(libs.androidx.lifecycle.compiler)
+    implementation("androidx.coordinatorlayout:coordinatorlayout:1.2.0")
 
 }
