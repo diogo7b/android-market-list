@@ -21,6 +21,7 @@
             android:id="@+id/tv_title_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/TextAppearance.Material3.TitleLarge"
             tools:text="Mercado 1" />
     </LinearLayout>
 
