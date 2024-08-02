@@ -48,22 +48,22 @@ class MarketListFragment : Fragment() {
             when (it) {
                 MarketListState.Empty -> {
                     emptyState()
-                    Log.d("MarketListFragment", "Empty")
+
                 }
 
                 is MarketListState.Error -> {
                     errorState()
-                    Log.d("MarketListFragment", "Error")
+
                 }
 
                 MarketListState.Loading -> {
                     loadingState()
-                    Log.d("MarketListFragment", "Loading")
+
                 }
 
                 is MarketListState.Success -> {
                     successState(it.marketList)
-                    Log.d("MarketListFragment", it.marketList.toString())
+
 
                 }
             }
