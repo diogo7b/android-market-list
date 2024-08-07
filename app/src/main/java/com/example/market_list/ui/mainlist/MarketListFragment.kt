@@ -1,7 +1,6 @@
 package com.example.market_list.ui.mainlist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.market_list.databinding.FragmentMarketListBinding
 import com.example.market_list.domain.model.MarketListDomain
 import kotlinx.coroutines.flow.Flow
@@ -22,9 +22,9 @@ class MarketListFragment : Fragment() {
     private val viewModel: MarketListViewModel by viewModels {
         MarketListViewModel.Factory()
     }
+
     private lateinit var binding: FragmentMarketListBinding
     private val adapter by lazy { MarketListAdapter() }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,7 +37,7 @@ class MarketListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        setupAdapater()
         setupListener()
         setupObserveStates()
     }
@@ -48,23 +48,18 @@ class MarketListFragment : Fragment() {
             when (it) {
                 MarketListState.Empty -> {
                     emptyState()
-
                 }
 
                 is MarketListState.Error -> {
                     errorState()
-
                 }
 
                 MarketListState.Loading -> {
                     loadingState()
-
                 }
 
                 is MarketListState.Success -> {
                     successState(it.marketList)
-
-
                 }
             }
         }
@@ -73,9 +68,16 @@ class MarketListFragment : Fragment() {
     private fun successState(marketLists: List<MarketListDomain>) {
         binding.pbLoading.isVisible = false
         binding.rcMarketLists.isVisible = true
-        binding.rcMarketLists.adapter = adapter
         adapter.submitList(marketLists)
     }
+
+    private fun setupAdapater() {
+        binding.rcMarketLists.adapter = adapter
+
+
+
+    }
+
 
     private fun emptyState() {
         binding.pbLoading.isVisible = false
@@ -110,6 +112,10 @@ class MarketListFragment : Fragment() {
         binding.fabAddList.setOnClickListener {
             handleShowDialog()
         }
+        adapter.click = { list ->
+            val action = MarketListFragmentDirections.goToDetailListFragment(list.id)
+            findNavController().navigate(action)
+        }
     }
 
     private fun handleShowDialog() {
@@ -121,4 +127,5 @@ class MarketListFragment : Fragment() {
             this@observe.collect(observe)
         }
     }
+
 }

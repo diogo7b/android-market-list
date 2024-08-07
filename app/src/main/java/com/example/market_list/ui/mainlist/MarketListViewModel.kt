@@ -27,7 +27,6 @@ class MarketListViewModel(
     private val _state = MutableSharedFlow<MarketListState>()
     val state: SharedFlow<MarketListState> = _state
 
-
     init {
         getAllLists()
     }
