@@ -9,7 +9,8 @@ val Context.db: AppDatabase
         applicationContext,
         AppDatabase::class.java,
         "marketList.db"
-    ).build()
+    ).fallbackToDestructiveMigration()
+        .build()
 
 private fun migrate(version: IntRange, sql: () -> String) =
     object : Migration(version.first, version.last) {

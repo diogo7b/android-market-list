@@ -10,6 +10,7 @@ import com.example.market_list.databinding.FragmentDetailListBinding
 
 class DetailListFragment : Fragment() {
     private lateinit var binding: FragmentDetailListBinding
+    private val adapter by lazy { DetailListAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -17,7 +18,7 @@ class DetailListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDetailListBinding.inflate(inflater, container, false)
-        arguments?.let{
+        arguments?.let {
             val id = it.getString("idList")
             val listName = it.getString("nameList")
             Log.d("teste_id", id.toString())

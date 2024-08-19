@@ -8,10 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.market_list.databinding.ItemMarketListBinding
 import com.example.market_list.domain.model.MarketListDomain
 
-class MarketListAdapter(
-
-) :
-    ListAdapter<MarketListDomain, MarketListAdapter.ViewHolder>(DiffCallback()) {
+class MarketListAdapter() : ListAdapter<MarketListDomain, MarketListAdapter.ViewHolder>(DiffCallback()) {
 
     var click: (MarketListDomain) -> Unit = {}
 

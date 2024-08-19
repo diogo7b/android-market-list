@@ -73,11 +73,7 @@ class MarketListFragment : Fragment() {
 
     private fun setupAdapater() {
         binding.rcMarketLists.adapter = adapter
-
-
-
     }
-
 
     private fun emptyState() {
         binding.pbLoading.isVisible = false

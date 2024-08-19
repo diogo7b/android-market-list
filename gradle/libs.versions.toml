@@ -13,9 +13,11 @@ material = "1.12.0"
 activity = "1.9.0"
 constraintlayout = "2.1.4"
 ksp = "1.9.23-1.0.19"
+navigationSafeArgsGradlePlugin = "2.7.7"
 roomKtx = "2.6.1"
 navigationFragmentKtx = "2.7.7"
 navigationUiKtx = "2.7.7"
+safeargs-plugin = "2.7.7"
 
 [libraries]
 androidx-coordinatorlayout = { module = "androidx.coordinatorlayout:coordinatorlayout", version.ref = "coordinatorlayout" }
@@ -37,11 +39,12 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationSafeArgsGradlePlugin" }
 
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinKsp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-navigation-safe-args = {id = "androidx.navigation.safeargs.kotlin", version.ref = "navigationFragmentKtx"}
+nav-safe-args = { id = "androidx.navigation.safeargs.kotlin", version.ref="navigationSafeArgsGradlePlugin" }
 

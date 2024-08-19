@@ -10,5 +10,7 @@ data class ItemListEntity(
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "unitPrice") val unitPrice: Double,
     @ColumnInfo(name = "amount") val amount: Int,
-    @ColumnInfo(name = "totalPrice") val totalPrice: Double
+    @ColumnInfo(name = "totalPrice") val totalPrice: Double,
+    @ColumnInfo(name = "marketListId") val marketListId: Int
 )
+
