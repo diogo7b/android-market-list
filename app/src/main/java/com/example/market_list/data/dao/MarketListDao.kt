@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MarketListDao {
-    @Query("SELECT * FROM marketList")
+    @Query("SELECT * FROM markets_list")
     fun getAllLists(): Flow<List<MarketListEntity>>
 
     @Insert
@@ -23,7 +23,7 @@ interface MarketListDao {
     fun updateList(list: MarketListEntity)
 
     @Transaction
-    @Query("SELECT * FROM  marketList where id = :id")
+    @Query("SELECT * FROM  markets_list where id = :id")
     fun getFullList(id: Int): Flow<List<FullListEntity>>
 
     @Insert

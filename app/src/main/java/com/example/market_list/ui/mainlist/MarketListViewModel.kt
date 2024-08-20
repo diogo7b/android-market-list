@@ -1,5 +1,6 @@
 package com.example.market_list.ui.mainlist
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -7,7 +8,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.market_list.data.repository.MarketListRepositoryImpl
 import com.example.market_list.domain.useCases.GetAllListsUseCase
 import com.example.market_list.domain.useCases.InsertListUseCase
-import db
+import com.example.market_list.data.db
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -37,7 +38,7 @@ class MarketListViewModel(
             .onStart {
                 _state.emit(MarketListState.Loading)
             }.catch {
-                _state.emit(MarketListState.Error("Error"))
+                _state.emit(MarketListState.Error(it.toString()))
             }.collect { lists ->
                 if (lists.isEmpty()) {
                     _state.emit(MarketListState.Empty)
