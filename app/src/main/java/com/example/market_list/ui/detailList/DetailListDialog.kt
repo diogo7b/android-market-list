@@ -47,12 +47,11 @@ class DetailListDialog : DialogFragment() {
         const val AMOUNT_VALUE = "AMOUNT_VALUE"
     }
 
-    fun show(
+    fun showDialog(
         fragmentManager: FragmentManager,
         tag: String = DetailListDialog::class.simpleName.toString()
     ) {
         DetailListDialog().show(fragmentManager, tag)
-
     }
 
 }
