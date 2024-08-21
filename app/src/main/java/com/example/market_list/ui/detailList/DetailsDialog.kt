@@ -7,11 +7,11 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
-import com.example.market_list.databinding.DetailListDialogBinding
+import com.example.market_list.databinding.DetailsDialogBinding
 
 
-class DetailListDialog : DialogFragment() {
-    private lateinit var binding: DetailListDialogBinding
+class DetailsDialog : DialogFragment() {
+    private lateinit var binding: DetailsDialogBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +20,7 @@ class DetailListDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         return activity?.let {
-            binding = DetailListDialogBinding.inflate(requireActivity().layoutInflater)
+            binding = DetailsDialogBinding.inflate(requireActivity().layoutInflater)
 
             AlertDialog.Builder(it)
                 .setView(binding.root)
@@ -49,9 +49,9 @@ class DetailListDialog : DialogFragment() {
 
     fun showDialog(
         fragmentManager: FragmentManager,
-        tag: String = DetailListDialog::class.simpleName.toString()
+        tag: String = DetailsDialog::class.simpleName.toString()
     ) {
-        DetailListDialog().show(fragmentManager, tag)
+        DetailsDialog().show(fragmentManager, tag)
     }
 
 }

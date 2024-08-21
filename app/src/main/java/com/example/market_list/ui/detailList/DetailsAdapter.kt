@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.market_list.databinding.ItemDetailListBinding
 import com.example.market_list.domain.model.FullListDomain
 
-class DetailListAdapter() :
-    ListAdapter<FullListDomain, DetailListAdapter.ViewHolder>(DiffCallback()) {
+class DetailsAdapter() :
+    ListAdapter<FullListDomain, DetailsAdapter.ViewHolder>(DiffCallback()) {
 
     var titleList: String = ""
+    var total: Double = 0.0
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -23,7 +24,7 @@ class DetailListAdapter() :
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: DetailListAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DetailsAdapter.ViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
@@ -38,6 +39,10 @@ class DetailListAdapter() :
                 binding.tvAmount.text = it.amount.toString()
                 binding.tvTotalPrice.text = it.totalPrice.toString()
             }
+
+            total = item.products.map { it.totalPrice }
+                .sum()
+
         }
     }
 }

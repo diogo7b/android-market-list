@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/detailListFragment"
-        android:name="com.example.market_list.ui.detailList.DetailListFragment"
+        android:name="com.example.market_list.ui.detailList.DetailsFragment"
         android:label="DetailListFragment"
         tools:layout="@layout/fragment_detail_list">
         <action
