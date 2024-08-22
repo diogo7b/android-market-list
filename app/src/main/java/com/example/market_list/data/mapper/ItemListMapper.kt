@@ -4,7 +4,7 @@ import com.example.market_list.data.entity.ItemListEntity
 import com.example.market_list.domain.model.ItemListDomain
 
 object ItemListMapper {
-    fun ItemListEntity.toDomain() = ItemListDomain(
+    fun ItemListEntity.itemLisToDomain() = ItemListDomain(
         id = id,
         name = name,
         unitPrice = unitPrice,
@@ -13,7 +13,7 @@ object ItemListMapper {
         marketListId = marketListId
     )
 
-    fun ItemListDomain.toEntity() = ItemListEntity(
+    fun ItemListDomain.itemLisTtoEntity() = ItemListEntity(
         id = id,
         name = name,
         unitPrice = unitPrice,

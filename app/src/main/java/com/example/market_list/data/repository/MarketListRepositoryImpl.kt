@@ -2,8 +2,10 @@ package com.example.market_list.data.repository
 
 import android.util.Log
 import com.example.market_list.data.dao.MarketListDao
-import com.example.market_list.data.entity.MarketListEntity
 import com.example.market_list.data.mapper.FullListMapper.fullEntityToDomain
+import com.example.market_list.data.mapper.ItemListMapper.itemLisTtoEntity
+import com.example.market_list.data.mapper.MarketListMapper.toDomain
+import com.example.market_list.data.mapper.MarketListMapper.toEntity
 import com.example.market_list.domain.model.FullListDomain
 import com.example.market_list.domain.model.ItemListDomain
 import com.example.market_list.domain.model.MarketListDomain
@@ -22,7 +24,6 @@ class MarketListRepositoryImpl(private val dao: MarketListDao) : MarketListRepos
         }
     }
 
-
     override suspend fun insertList(list: MarketListDomain) = withContext(Dispatchers.IO) {
         dao.insertList(list.toEntity())
     }
@@ -35,16 +36,17 @@ class MarketListRepositoryImpl(private val dao: MarketListDao) : MarketListRepos
         TODO("Not yet implemented")
     }
 
-    override suspend fun getDetails(id: Int): Flow<FullListDomain> = withContext(Dispatchers.IO) {
-        dao.getFullList(id).map {
-            Log.e("teste", it.toString())
-            it.fullEntityToDomain()
+    override suspend fun getDetails(id: Int): Flow<FullListDomain> =
+        withContext(Dispatchers.IO) {
+            dao.getFullList(id).map {
+                Log.e("teste", it.toString())
+                it.fullEntityToDomain()
+            }
         }
-    }
 
 
     override suspend fun insertProduct(product: ItemListDomain) {
-        TODO("Not yet implemented")
+        dao.insertItem(product.itemLisTtoEntity())
     }
 
     override suspend fun deleteProduct(product: ItemListDomain) {
@@ -55,14 +57,3 @@ class MarketListRepositoryImpl(private val dao: MarketListDao) : MarketListRepos
         TODO("Not yet implemented")
     }
 }
-
-// Extension
-private fun MarketListEntity.toDomain() = MarketListDomain(
-    id = id,
-    listName = listName
-)
-
-private fun MarketListDomain.toEntity() = MarketListEntity(
-    id = id,
-    listName = listName
-)

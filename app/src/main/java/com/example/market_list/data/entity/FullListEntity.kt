@@ -10,5 +10,4 @@ data class FullListEntity(
         parentColumn = "id",
         entityColumn = "marketListId"
     ) val products: List<ItemListEntity>,
-
 )
