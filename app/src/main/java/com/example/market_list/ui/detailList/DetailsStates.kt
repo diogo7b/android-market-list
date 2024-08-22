@@ -6,6 +6,6 @@ import com.example.market_list.domain.model.FullListDomain
 sealed interface DetailsStates {
     object Loading : DetailsStates
     object Empty : DetailsStates
-    data class Success(val marketList: List<FullListDomain>) : DetailsStates
+    data class Success(val detailsList: FullListDomain) : DetailsStates
     data class Error(val message: String) : DetailsStates
 }

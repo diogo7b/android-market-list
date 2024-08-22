@@ -5,5 +5,6 @@ data class ItemListDomain(
     val name: String,
     val unitPrice: Double,
     val amount: Int,
-    val totalPrice: Double
+    val totalPrice: Double,
+    val marketListId: Int
 )

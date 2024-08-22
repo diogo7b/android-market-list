@@ -18,12 +18,11 @@ class DetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDetailListBinding.inflate(inflater, container, false)
+        val list_info = arguments?.getString("list_info")
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Log.d("teste_adapter", "${adapter.titleList}, ${adapter.total.toString()}")
     }
 }

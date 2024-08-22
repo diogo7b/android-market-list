@@ -50,14 +50,17 @@ class MarketListFragment : Fragment() {
                     emptyState()
                     Log.d("estado", "empty")
                 }
+
                 is MarketListState.Error -> {
                     errorState()
                     Log.d("estado", "error")
                 }
+
                 MarketListState.Loading -> {
                     loadingState()
                     Log.d("estado", "loading")
                 }
+
                 is MarketListState.Success -> {
                     successState(it.marketList)
                     Log.d("estado", "success")
@@ -111,7 +114,7 @@ class MarketListFragment : Fragment() {
             handleShowDialog()
         }
         adapter.click = { list ->
-            val action = MarketListFragmentDirections.goToDetailListFragment(list.id)
+            val action = MarketListFragmentDirections.goToDetailListFragment(list.id, list.listName)
             findNavController().navigate(action)
         }
     }

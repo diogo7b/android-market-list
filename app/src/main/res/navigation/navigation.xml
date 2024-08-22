@@ -27,6 +27,10 @@
             android:name="id"
             android:defaultValue="0"
             app:argType="integer" />
+        <argument
+            android:name="listName"
+            android:defaultValue=""
+            app:argType="string" />
     </fragment>
 
 </navigation>

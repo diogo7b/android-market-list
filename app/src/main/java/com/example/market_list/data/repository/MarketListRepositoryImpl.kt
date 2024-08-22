@@ -1,7 +1,10 @@
 package com.example.market_list.data.repository
 
+import android.util.Log
 import com.example.market_list.data.dao.MarketListDao
 import com.example.market_list.data.entity.MarketListEntity
+import com.example.market_list.data.mapper.FullListMapper.fullEntityToDomain
+import com.example.market_list.domain.model.FullListDomain
 import com.example.market_list.domain.model.ItemListDomain
 import com.example.market_list.domain.model.MarketListDomain
 import com.example.market_list.domain.repository.MarketListRepository
@@ -32,9 +35,13 @@ class MarketListRepositoryImpl(private val dao: MarketListDao) : MarketListRepos
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAllProducts(): Flow<List<ItemListDomain>> {
-        TODO("Not yet implemented")
+    override suspend fun getDetails(id: Int): Flow<FullListDomain> = withContext(Dispatchers.IO) {
+        dao.getFullList(id).map {
+            Log.e("teste", it.toString())
+            it.fullEntityToDomain()
+        }
     }
+
 
     override suspend fun insertProduct(product: ItemListDomain) {
         TODO("Not yet implemented")

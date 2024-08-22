@@ -23,8 +23,8 @@ interface MarketListDao {
     fun updateList(list: MarketListEntity)
 
     @Transaction
-    @Query("SELECT * FROM  markets_list where id = :id")
-    fun getFullList(id: Int): Flow<List<FullListEntity>>
+    @Query("SELECT * FROM  itens_list where marketListId = :id")
+    fun getFullList(id: Int): Flow<FullListEntity>
 
     @Insert
     fun insertItem(item: ItemListEntity)
