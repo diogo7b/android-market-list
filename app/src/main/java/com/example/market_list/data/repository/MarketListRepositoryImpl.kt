@@ -32,7 +32,7 @@ class MarketListRepositoryImpl(private val dao: MarketListDao) : MarketListRepos
         dao.updateList(list.toEntity())
     }
 
-    override suspend fun deleteList(marketList: MarketListDomain) {
+    override suspend fun deleteList(marketList: MarketListDomain) = withContext(Dispatchers.IO) {
         dao.deleteList(marketList.toEntity())
     }
 

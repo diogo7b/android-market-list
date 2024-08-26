@@ -1,5 +1,6 @@
 package com.example.market_list.ui.mainlist
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -55,7 +56,10 @@ class MarketListViewModel(
     }
 
     fun deleteList(listName: MarketListDomain) = viewModelScope.launch {
+
         deleteListUseCase(listName)
+
+
     }
 
 
