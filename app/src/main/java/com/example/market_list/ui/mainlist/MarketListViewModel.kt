@@ -4,10 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import com.example.market_list.data.db
 import com.example.market_list.data.repository.MarketListRepositoryImpl
+import com.example.market_list.domain.model.MarketListDomain
+import com.example.market_list.domain.use_cases.main_list.DeleteListUseCase
 import com.example.market_list.domain.use_cases.main_list.GetAllListsUseCase
 import com.example.market_list.domain.use_cases.main_list.InsertListUseCase
-import com.example.market_list.data.db
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -21,6 +23,7 @@ import kotlinx.coroutines.launch
 class MarketListViewModel(
     private val getAllListsUseCase: GetAllListsUseCase,
     private val insertListUseCase: InsertListUseCase,
+    private val deleteListUseCase: DeleteListUseCase,
     private val dispatcherIO: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
@@ -51,6 +54,10 @@ class MarketListViewModel(
         insertListUseCase(listName)
     }
 
+    fun deleteList(listName: MarketListDomain) = viewModelScope.launch {
+        deleteListUseCase(listName)
+    }
+
 
     class Factory : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(
@@ -62,8 +69,13 @@ class MarketListViewModel(
             val repository = MarketListRepositoryImpl(application.db.marketListDao())
             val getAllListsUseCase = GetAllListsUseCase(repository)
             val insertListUseCase = InsertListUseCase(repository)
+            val deleteListUseCase = DeleteListUseCase(repository)
 
-            return MarketListViewModel(getAllListsUseCase, insertListUseCase) as T
+            return MarketListViewModel(
+                getAllListsUseCase,
+                insertListUseCase,
+                deleteListUseCase
+            ) as T
         }
     }
 }

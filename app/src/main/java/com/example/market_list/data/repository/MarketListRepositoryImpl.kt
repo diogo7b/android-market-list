@@ -32,8 +32,8 @@ class MarketListRepositoryImpl(private val dao: MarketListDao) : MarketListRepos
         dao.updateList(list.toEntity())
     }
 
-    override suspend fun deleteList(fullList: FullListDomain) {
-        dao.deleteList(fullList)
+    override suspend fun deleteList(marketList: MarketListDomain) {
+        dao.deleteList(marketList.toEntity())
     }
 
     override suspend fun getDetails(id: Int): Flow<FullListDomain> =

@@ -8,9 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.market_list.databinding.ItemMarketListBinding
 import com.example.market_list.domain.model.MarketListDomain
 
-class MarketListAdapter() : ListAdapter<MarketListDomain, MarketListAdapter.ViewHolder>(DiffCallback()) {
+class MarketListAdapter() :
+    ListAdapter<MarketListDomain, MarketListAdapter.ViewHolder>(DiffCallback()) {
 
     var click: (MarketListDomain) -> Unit = {}
+    var delete: (MarketListDomain) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -29,6 +31,9 @@ class MarketListAdapter() : ListAdapter<MarketListDomain, MarketListAdapter.View
             binding.tvTitleList.text = item.listName
             binding.root.setOnClickListener {
                 click(item)
+            }
+            binding.ivDelete.setOnClickListener {
+                delete(item)
             }
         }
     }

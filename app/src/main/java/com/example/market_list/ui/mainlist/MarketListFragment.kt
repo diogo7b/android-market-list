@@ -117,6 +117,10 @@ class MarketListFragment : Fragment() {
             val action = MarketListFragmentDirections.goToDetailListFragment(list.id, list.listName)
             findNavController().navigate(action)
         }
+
+        adapter.delete = { list ->
+            viewModel.deleteList(list)
+        }
     }
 
     private fun handleShowDialog() {
