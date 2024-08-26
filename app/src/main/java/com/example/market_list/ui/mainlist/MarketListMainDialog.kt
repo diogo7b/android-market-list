@@ -3,6 +3,7 @@ package com.example.market_list.ui.mainlist
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
@@ -27,12 +28,20 @@ class MarketListMainDialog : DialogFragment() {
             AlertDialog.Builder(it)
                 .setView(binding.root)
                 .setPositiveButton("Confirmar") { _, _ ->
-                    setFragmentResult(
-                        FRAGMENT_RESULT,
-                        bundleOf(
-                            EDIT_TEXT_VALUE to binding.etTitleList.text.toString()
+                    if (
+                        binding.etTitleList.text.toString().isNotBlank()
+                    ) {
+                        setFragmentResult(
+                            FRAGMENT_RESULT,
+                            bundleOf(
+                                EDIT_TEXT_VALUE to binding.etTitleList.text.toString()
+                            )
                         )
-                    )
+                    } else {
+                        dismiss()
+                        Toast.makeText(requireContext(), "Digite um titulo", Toast.LENGTH_LONG)
+                            .show()
+                    }
                 }
                 .setNegativeButton("Cancelar") { _, _ ->
                     dismiss()

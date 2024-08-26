@@ -1,6 +1,5 @@
 package com.example.market_list.data.repository
 
-import android.util.Log
 import com.example.market_list.data.dao.MarketListDao
 import com.example.market_list.data.mapper.FullListMapper.fullEntityToDomain
 import com.example.market_list.data.mapper.ItemListMapper.itemLisTtoEntity
@@ -39,7 +38,6 @@ class MarketListRepositoryImpl(private val dao: MarketListDao) : MarketListRepos
     override suspend fun getDetails(id: Int): Flow<FullListDomain> =
         withContext(Dispatchers.IO) {
             dao.getFullList(id).map {
-                Log.e("teste", it.toString())
                 it.fullEntityToDomain()
             }
         }

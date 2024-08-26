@@ -1,7 +1,7 @@
 package com.example.market_list.ui.mainlist
 
 import android.os.Bundle
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,22 +48,22 @@ class MarketListFragment : Fragment() {
             when (it) {
                 MarketListState.Empty -> {
                     emptyState()
-                    Log.d("estado", "empty")
+
                 }
 
                 is MarketListState.Error -> {
                     errorState()
-                    Log.d("estado", "error")
+
                 }
 
                 MarketListState.Loading -> {
                     loadingState()
-                    Log.d("estado", "loading")
+
                 }
 
                 is MarketListState.Success -> {
                     successState(it.marketList)
-                    Log.d("estado", "success")
+
                 }
             }
         }
