@@ -10,7 +10,8 @@ interface MarketListRepository {
     suspend fun getAllLists(): Flow<List<MarketListDomain>>
     suspend fun insertList(list: MarketListDomain)
     suspend fun updateList(list: MarketListDomain)
-    suspend fun deleteList(id:Int)
+    suspend fun deleteList(fullList: FullListDomain)
+
     // Crud products
     suspend fun getDetails(id: Int): Flow<FullListDomain>
     suspend fun insertProduct(product: ItemListDomain)

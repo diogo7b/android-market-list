@@ -21,7 +21,7 @@
         android:label="DetailListFragment"
         tools:layout="@layout/fragment_detail_list">
         <action
-            android:id="@+id/action_detailListFragment_to_marketListFragment"
+            android:id="@+id/go_to_marketListFragment"
             app:destination="@id/marketListFragment" />
         <argument
             android:name="id"

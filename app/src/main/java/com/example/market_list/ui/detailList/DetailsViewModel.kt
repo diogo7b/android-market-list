@@ -7,8 +7,8 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.market_list.data.db
 import com.example.market_list.data.repository.MarketListRepositoryImpl
 import com.example.market_list.domain.model.ItemListDomain
-import com.example.market_list.domain.useCases.GetDetailsUseCase
-import com.example.market_list.domain.useCases.InsertProductUseCase
+import com.example.market_list.domain.use_cases.details_list.GetDetailsUseCase
+import com.example.market_list.domain.use_cases.details_list.InsertProductUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow

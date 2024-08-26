@@ -29,11 +29,11 @@ class MarketListRepositoryImpl(private val dao: MarketListDao) : MarketListRepos
     }
 
     override suspend fun updateList(list: MarketListDomain) {
-        TODO("Not yet implemented")
+        dao.updateList(list.toEntity())
     }
 
-    override suspend fun deleteList(id: Int) {
-        TODO("Not yet implemented")
+    override suspend fun deleteList(fullList: FullListDomain) {
+        dao.deleteList(fullList)
     }
 
     override suspend fun getDetails(id: Int): Flow<FullListDomain> =
@@ -44,16 +44,15 @@ class MarketListRepositoryImpl(private val dao: MarketListDao) : MarketListRepos
             }
         }
 
-
     override suspend fun insertProduct(product: ItemListDomain) {
         dao.insertItem(product.itemLisTtoEntity())
     }
 
     override suspend fun deleteProduct(product: ItemListDomain) {
-        TODO("Not yet implemented")
+        dao.deleteItem(product.itemLisTtoEntity())
     }
 
     override suspend fun updateProduct(product: ItemListDomain) {
-        TODO("Not yet implemented")
+        dao.updateItem(product.itemLisTtoEntity())
     }
 }

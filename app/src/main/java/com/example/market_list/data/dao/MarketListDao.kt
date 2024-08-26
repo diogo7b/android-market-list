@@ -9,6 +9,7 @@ import androidx.room.Update
 import com.example.market_list.data.entity.FullListEntity
 import com.example.market_list.data.entity.ItemListEntity
 import com.example.market_list.data.entity.MarketListEntity
+import com.example.market_list.domain.model.FullListDomain
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -21,6 +22,9 @@ interface MarketListDao {
 
     @Update
     fun updateList(list: MarketListEntity)
+
+    @Delete
+    fun deleteList(fullList: FullListDomain)
 
     @Transaction
     @Query("SELECT * FROM  markets_list where id = :id")

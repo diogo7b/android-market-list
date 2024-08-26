@@ -1,13 +1,12 @@
 package com.example.market_list.ui.mainlist
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.market_list.data.repository.MarketListRepositoryImpl
-import com.example.market_list.domain.useCases.GetAllListsUseCase
-import com.example.market_list.domain.useCases.InsertListUseCase
+import com.example.market_list.domain.use_cases.main_list.GetAllListsUseCase
+import com.example.market_list.domain.use_cases.main_list.InsertListUseCase
 import com.example.market_list.data.db
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
