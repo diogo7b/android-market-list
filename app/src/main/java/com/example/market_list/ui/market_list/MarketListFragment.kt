@@ -105,7 +105,7 @@ class MarketListFragment : Fragment() {
     }
 
     private fun setupListener() {
-        setFragmentResultListener(MarketListMainDialog.FRAGMENT_RESULT) { requestKey, bundle ->
+        setFragmentResultListener(MarketListMainDialog.FRAGMENT_RESULT) { _, bundle ->
             val name = bundle.getString(MarketListMainDialog.EDIT_TEXT_VALUE) ?: ""
             viewModel.insertList(name)
         }
@@ -114,7 +114,7 @@ class MarketListFragment : Fragment() {
             handleShowDialog()
         }
         adapter.click = { list ->
-            val action = MarketListFragmentDirections.goToDetailListFragment(list.id, list.listName)
+            val action = MarketListFragmentDirections.goToProductFragment(list.id, list.listName)
             findNavController().navigate(action)
         }
 
