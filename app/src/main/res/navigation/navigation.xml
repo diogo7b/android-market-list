@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/marketListFragment">
+
+    <fragment
+        android:id="@+id/marketListFragment"
+        android:name="com.example.market_list.ui.mainlist.MarketListFragment"
+        android:label="MarketListFragment"
+        tools:layout="@layout/fragment_market_list">
+        <action
+            android:id="@+id/go_to_detailListFragment"
+            app:destination="@id/detailListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailListFragment"
+        android:name="com.example.market_list.ui.detailList.DetailsFragment"
+        android:label="DetailListFragment"
+        tools:layout="@layout/fragment_detail_list">
+        <action
+            android:id="@+id/go_to_marketListFragment"
+            app:destination="@id/marketListFragment" />
+        <argument
+            android:name="id"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <argument
+            android:name="listName"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
+
+</navigation>

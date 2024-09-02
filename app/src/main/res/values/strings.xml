@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Market_List</string>
+    <string name="title_lists">Listas</string>
+    <string name="desc_add_button">add list button</string>
+    <string name="new_list">Nova Lista</string>
+    <string name="hint_new_list">Digite o nome da lista</string>
+    <string name="content_description_detail_btn">Botão para adicionar itens a lista de compras</string>
 </resources>
