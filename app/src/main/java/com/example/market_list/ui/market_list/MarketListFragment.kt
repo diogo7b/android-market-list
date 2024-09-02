@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.market_list.R
 import com.example.market_list.databinding.FragmentMarketListBinding
 import com.example.market_list.domain.model.MarketListDomain
 import kotlinx.coroutines.flow.Flow
@@ -95,7 +96,7 @@ class MarketListFragment : Fragment() {
         binding.pbLoading.isVisible = false
         binding.rcMarketLists.isVisible = false
         binding.tvTitleEmptyList.isVisible = true
-        binding.tvTitleEmptyList.text = "Ocorreu um erro"
+        binding.tvTitleEmptyList.text = getString(R.string.error_message)
     }
 
     private fun loadingState() {

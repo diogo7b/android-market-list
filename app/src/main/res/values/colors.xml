@@ -2,4 +2,20 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    // Defined Color
+    <color name="primary_color">#7FFFFF</color>
+    <color name="secondary_color">#E7FFFF</color>
+    <color name="light_blue_off">#008E8E</color>
+
+    //Dark Color
+    <color name="background_dark">#00343B</color>
+
+
+    //Neutral Colors
+    <color name="text_color">#C3BEFF</color>
+    <color name="dark_text_color">#F2F2F2</color>
+
+
+
 </resources>

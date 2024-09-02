@@ -19,8 +19,8 @@
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|snap"
-            app:title="Lista"
             app:navigationIcon="@drawable/ic_back"
+            app:title="Lista"
             tools:title="Título da lista" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -73,7 +73,8 @@
         android:id="@+id/fab_add_item_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
+        android:backgroundTint="@android:color/holo_purple"
         android:contentDescription="@string/content_description_detail_btn"
         android:src="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="parent"
