@@ -11,12 +11,12 @@
         android:label="MarketListFragment"
         tools:layout="@layout/fragment_market_list">
         <action
-            android:id="@+id/go_to_detailListFragment"
-            app:destination="@id/detailListFragment" />
+            android:id="@+id/go_to_productFragment"
+            app:destination="@id/productFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/detailListFragment"
+        android:id="@+id/productFragment"
         android:name="com.example.market_list.ui.products_list.ProductFragment"
         android:label="DetailListFragment"
         tools:layout="@layout/fragment_product_list">
