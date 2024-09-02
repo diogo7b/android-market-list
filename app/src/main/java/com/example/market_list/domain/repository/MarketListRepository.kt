@@ -1,7 +1,7 @@
 package com.example.market_list.domain.repository
 
 import com.example.market_list.domain.model.FullListDomain
-import com.example.market_list.domain.model.ItemListDomain
+import com.example.market_list.domain.model.ProductDomain
 import com.example.market_list.domain.model.MarketListDomain
 import kotlinx.coroutines.flow.Flow
 
@@ -13,8 +13,8 @@ interface MarketListRepository {
     suspend fun deleteList(marketList: MarketListDomain)
 
     // Crud products
-    suspend fun getDetails(id: Int): Flow<FullListDomain>
-    suspend fun insertProduct(product: ItemListDomain)
-    suspend fun deleteProduct(product: ItemListDomain)
-    suspend fun updateProduct(product: ItemListDomain)
+    suspend fun getProducts(id: Int): Flow<FullListDomain>
+    suspend fun insertProduct(product: ProductDomain)
+    suspend fun deleteProduct(product: ProductDomain)
+    suspend fun updateProduct(product: ProductDomain)
 }

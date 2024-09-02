@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/marketListFragment"
-        android:name="com.example.market_list.ui.mainlist.MarketListFragment"
+        android:name="com.example.market_list.ui.market_list.MarketListFragment"
         android:label="MarketListFragment"
         tools:layout="@layout/fragment_market_list">
         <action
@@ -17,9 +17,9 @@
 
     <fragment
         android:id="@+id/detailListFragment"
-        android:name="com.example.market_list.ui.detailList.DetailsFragment"
+        android:name="com.example.market_list.ui.products_list.ProductFragment"
         android:label="DetailListFragment"
-        tools:layout="@layout/fragment_detail_list">
+        tools:layout="@layout/fragment_product_list">
         <action
             android:id="@+id/go_to_marketListFragment"
             app:destination="@id/marketListFragment" />

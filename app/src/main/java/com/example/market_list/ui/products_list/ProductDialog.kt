@@ -1,4 +1,4 @@
-package com.example.market_list.ui.detailList
+package com.example.market_list.ui.products_list
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -7,11 +7,11 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
-import com.example.market_list.databinding.DetailsDialogBinding
+import com.example.market_list.databinding.ProductDialogBinding
 
 
-class DetailsDialog : DialogFragment() {
-    private lateinit var binding: DetailsDialogBinding
+class ProductDialog : DialogFragment() {
+    private lateinit var binding: ProductDialogBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +20,7 @@ class DetailsDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         return activity?.let {
-            binding = DetailsDialogBinding.inflate(requireActivity().layoutInflater)
+            binding = ProductDialogBinding.inflate(requireActivity().layoutInflater)
 
             AlertDialog.Builder(it)
                 .setView(binding.root)
@@ -49,9 +49,9 @@ class DetailsDialog : DialogFragment() {
 
     fun showDialog(
         fragmentManager: FragmentManager,
-        tag: String = DetailsDialog::class.simpleName.toString()
+        tag: String = ProductDialog::class.simpleName.toString()
     ) {
-        DetailsDialog().show(fragmentManager, tag)
+        ProductDialog().show(fragmentManager, tag)
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.market_list.ui.detailList
+package com.example.market_list.ui.products_list
 
 
 import android.view.LayoutInflater
@@ -6,22 +6,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.market_list.databinding.ItemDetailListBinding
-import com.example.market_list.domain.model.FullListDomain
-import com.example.market_list.domain.model.ItemListDomain
+import com.example.market_list.databinding.LayoutProductListBinding
+import com.example.market_list.domain.model.ProductDomain
 
 class DetailsAdapter() :
-    ListAdapter<ItemListDomain, DetailsAdapter.ViewHolder>(DiffCallback()) {
+    ListAdapter<ProductDomain, DetailsAdapter.ViewHolder>(DiffCallback()) {
 
     var total: Double = 0.0
-    var click: (ItemListDomain) -> Unit = {}
+    var click: (ProductDomain) -> Unit = {}
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemDetailListBinding.inflate(inflater, parent, false)
+        val binding = LayoutProductListBinding.inflate(inflater, parent, false)
         return ViewHolder(binding)
     }
 
@@ -30,9 +29,9 @@ class DetailsAdapter() :
     }
 
     inner class ViewHolder(
-        private val binding: ItemDetailListBinding
+        private val binding: LayoutProductListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ItemListDomain) {
+        fun bind(item: ProductDomain) {
             item.apply {
                 binding.tvNameItem.text = name
                 binding.tvUnitPrice.text = unitPrice.toString()
@@ -44,11 +43,11 @@ class DetailsAdapter() :
 }
 
 
-class DiffCallback : DiffUtil.ItemCallback<ItemListDomain>() {
-    override fun areItemsTheSame(oldItem: ItemListDomain, newItem: ItemListDomain) =
+class DiffCallback : DiffUtil.ItemCallback<ProductDomain>() {
+    override fun areItemsTheSame(oldItem: ProductDomain, newItem: ProductDomain) =
         oldItem == newItem
 
-    override fun areContentsTheSame(oldItem: ItemListDomain, newItem: ItemListDomain) =
+    override fun areContentsTheSame(oldItem: ProductDomain, newItem: ProductDomain) =
         oldItem.id == newItem.id
 }
 

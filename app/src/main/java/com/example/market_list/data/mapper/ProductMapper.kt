@@ -1,10 +1,10 @@
 package com.example.market_list.data.mapper
 
-import com.example.market_list.data.entity.ItemListEntity
-import com.example.market_list.domain.model.ItemListDomain
+import com.example.market_list.data.entity.ProductEntity
+import com.example.market_list.domain.model.ProductDomain
 
-object ItemListMapper {
-    fun ItemListEntity.itemLisToDomain() = ItemListDomain(
+object ProductMapper {
+    fun ProductEntity.productToDomain() = ProductDomain(
         id = id,
         name = name,
         unitPrice = unitPrice,
@@ -13,7 +13,7 @@ object ItemListMapper {
         marketListId = marketListId
     )
 
-    fun ItemListDomain.itemLisTtoEntity() = ItemListEntity(
+    fun ProductDomain.productToEntity() = ProductEntity(
         id = id,
         name = name,
         unitPrice = unitPrice,

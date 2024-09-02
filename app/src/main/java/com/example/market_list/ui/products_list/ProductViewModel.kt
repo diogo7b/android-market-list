@@ -1,4 +1,4 @@
-package com.example.market_list.ui.detailList
+package com.example.market_list.ui.products_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -6,9 +6,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.market_list.data.db
 import com.example.market_list.data.repository.MarketListRepositoryImpl
-import com.example.market_list.domain.model.ItemListDomain
-import com.example.market_list.domain.use_cases.details_list.GetDetailsUseCase
-import com.example.market_list.domain.use_cases.details_list.InsertProductUseCase
+import com.example.market_list.domain.model.ProductDomain
+import com.example.market_list.domain.use_cases.products_list.GetProductsUseCase
+import com.example.market_list.domain.use_cases.products_list.InsertProductUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -18,31 +18,31 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
-class DetailsViewModel(
-    private val getDetailsUseCase: GetDetailsUseCase,
+class ProductViewModel(
+    private val getDetailsUseCase: GetProductsUseCase,
     private val insertProductUseCase: InsertProductUseCase,
     private val dispatcherIO: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
-    private val _state = MutableSharedFlow<DetailsStates>()
-    val state: SharedFlow<DetailsStates> = _state
+    private val _state = MutableSharedFlow<ProductStates>()
+    val state: SharedFlow<ProductStates> = _state
 
     fun getDetails(id: Int) = viewModelScope.launch {
         getDetailsUseCase(id)
             .flowOn(dispatcherIO)
             .onStart {
-                _state.emit(DetailsStates.Loading)
+                _state.emit(ProductStates.Loading)
             }.catch {
-                _state.emit(DetailsStates.Error(it.toString()))
+                _state.emit(ProductStates.Error(it.toString()))
             }.collect { details ->
                 if (details.products.isEmpty()) {
-                    _state.emit(DetailsStates.Empty)
+                    _state.emit(ProductStates.Empty)
                 } else {
-                    _state.emit(DetailsStates.Success(details))
+                    _state.emit(ProductStates.Success(details))
                 }
             }
     }
 
-    fun insertProduct(product: ItemListDomain) = viewModelScope.launch {
+    fun insertProduct(product: ProductDomain) = viewModelScope.launch {
         insertProductUseCase(product)
     }
 
@@ -54,10 +54,10 @@ class DetailsViewModel(
             val application =
                 checkNotNull(extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY])
             val repository = MarketListRepositoryImpl(application.db.marketListDao())
-            val getDetailsUseCase = GetDetailsUseCase(repository)
+            val getDetailsUseCase = GetProductsUseCase(repository)
             val insertProductUseCase = InsertProductUseCase(repository)
 
-            return DetailsViewModel(getDetailsUseCase, insertProductUseCase) as T
+            return ProductViewModel(getDetailsUseCase, insertProductUseCase) as T
         }
     }
 

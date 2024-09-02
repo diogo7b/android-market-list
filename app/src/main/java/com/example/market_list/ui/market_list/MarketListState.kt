@@ -1,4 +1,4 @@
-package com.example.market_list.ui.mainlist
+package com.example.market_list.ui.market_list
 
 import com.example.market_list.domain.model.MarketListDomain
 

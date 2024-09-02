@@ -1,6 +1,6 @@
 package com.example.market_list.domain.model
 
-data class ItemListDomain(
+data class ProductDomain(
     val id: Int,
     val name: String,
     val unitPrice: Double,

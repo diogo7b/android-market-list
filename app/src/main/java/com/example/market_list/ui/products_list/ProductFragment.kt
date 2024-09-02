@@ -1,4 +1,4 @@
-package com.example.market_list.ui.detailList
+package com.example.market_list.ui.products_list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,24 +8,24 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.market_list.databinding.FragmentDetailListBinding
+import com.example.market_list.databinding.FragmentProductListBinding
 
-class DetailsFragment : Fragment() {
+class ProductFragment : Fragment() {
 
 
-    private val viewModel: DetailsViewModel by viewModels {
-        DetailsViewModel.Factory()
+    private val viewModel: ProductViewModel by viewModels {
+        ProductViewModel.Factory()
     }
-    private lateinit var binding: FragmentDetailListBinding
+    private lateinit var binding: FragmentProductListBinding
     private val adapter by lazy { DetailsAdapter() }
-    private val args by navArgs<DetailsFragmentArgs>()
+    private val args by navArgs<ProductFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDetailListBinding.inflate(inflater, container, false)
+        binding = FragmentProductListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -43,7 +43,7 @@ class DetailsFragment : Fragment() {
     private fun setupListener() {
 
         binding.mtDetailList.setNavigationOnClickListener {
-            val action = DetailsFragmentDirections.goToMarketListFragment()
+            val action = ProductFragmentDirections.goToMarketListFragment()
             findNavController().navigate(action)
         }
     }
