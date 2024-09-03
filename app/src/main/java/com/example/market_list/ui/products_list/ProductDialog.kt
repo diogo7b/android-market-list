@@ -9,13 +9,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import com.example.market_list.databinding.ProductDialogBinding
 
-
 class ProductDialog : DialogFragment() {
-    private lateinit var binding: ProductDialogBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var binding: ProductDialogBinding
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -41,17 +37,18 @@ class ProductDialog : DialogFragment() {
     }
 
     companion object {
+
         const val FRAGMENT_RESULT = "FRAGMENT_RESULT"
         const val NAME_ITEM_VALUE = "NAME_ITEM_VALUE"
         const val UNIT_PRICE_VALUE = "UNIT_PRICE_VALUE"
         const val AMOUNT_VALUE = "AMOUNT_VALUE"
-    }
 
-    fun showDialog(
-        fragmentManager: FragmentManager,
-        tag: String = ProductDialog::class.simpleName.toString()
-    ) {
-        ProductDialog().show(fragmentManager, tag)
+        fun show(
+            fragmentManager: FragmentManager,
+            tag: String = ProductDialog::class.simpleName.toString()
+        ) {
+            ProductDialog().show(fragmentManager, tag)
+        }
     }
 
 }

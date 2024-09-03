@@ -41,10 +41,10 @@ class MarketListFragment : Fragment() {
 
         setupAdapater()
         setupListener()
-        setupObserveStates()
+        setupObserveState()
     }
 
-    private fun setupObserveStates() {
+    private fun setupObserveState() {
         viewModel.state.observe(viewLifecycleOwner) {
             when (it) {
                 MarketListState.Empty -> {
