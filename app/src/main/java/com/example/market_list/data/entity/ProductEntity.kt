@@ -9,7 +9,7 @@ data class ProductEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "unitPrice") val unitPrice: Double,
-    @ColumnInfo(name = "amount") val amount: Int,
+    @ColumnInfo(name = "amount") val amount: Double,
     @ColumnInfo(name = "totalPrice") val totalPrice: Double,
     @ColumnInfo(name = "marketListId") val marketListId: Int
 )

@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.market_list.data.db
 import com.example.market_list.data.repository.MarketListRepositoryImpl
-import com.example.market_list.domain.model.ProductDomain
 import com.example.market_list.domain.use_cases.products_list.GetProductsUseCase
 import com.example.market_list.domain.use_cases.products_list.InsertProductUseCase
 import kotlinx.coroutines.CoroutineDispatcher
@@ -23,30 +22,32 @@ class ProductViewModel(
     private val insertProductUseCase: InsertProductUseCase,
     private val dispatcherIO: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
-    private val _state = MutableSharedFlow<ProductStates>()
-    val state: SharedFlow<ProductStates> = _state
+
+    private val _state = MutableSharedFlow<ProductState>()
+    val state: SharedFlow<ProductState> = _state
 
     fun getDetails(id: Int) = viewModelScope.launch {
         getDetailsUseCase(id)
             .flowOn(dispatcherIO)
             .onStart {
-                _state.emit(ProductStates.Loading)
+                _state.emit(ProductState.Loading)
             }.catch {
-                _state.emit(ProductStates.Error(it.toString()))
+                _state.emit(ProductState.Error(it.toString()))
             }.collect { details ->
                 if (details.products.isEmpty()) {
-                    _state.emit(ProductStates.Empty)
+                    _state.emit(ProductState.Empty)
                 } else {
-                    _state.emit(ProductStates.Success(details))
+                    _state.emit(ProductState.Success(details))
                 }
             }
     }
 
-    fun insertProduct(product: ProductDomain) = viewModelScope.launch {
-        insertProductUseCase(product)
+    fun insertProduct(name: String, price: String, amount: String, listId: Int) = viewModelScope.launch {
+        insertProductUseCase(name, price, amount, listId)
     }
 
     class Factory : ViewModelProvider.Factory {
+
         override fun <T : ViewModel> create(
             modelClass: Class<T>,
             extras: CreationExtras

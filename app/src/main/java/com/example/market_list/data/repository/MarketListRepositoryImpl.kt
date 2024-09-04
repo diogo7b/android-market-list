@@ -42,7 +42,7 @@ class MarketListRepositoryImpl(private val dao: MarketListDao) : MarketListRepos
             }
         }
 
-    override suspend fun insertProduct(product: ProductDomain) {
+    override suspend fun insertProduct(product: ProductDomain) = withContext(Dispatchers.IO) {
         dao.insertProduct(product.productToEntity())
     }
 
