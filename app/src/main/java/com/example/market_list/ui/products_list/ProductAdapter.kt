@@ -11,7 +11,7 @@ import com.example.market_list.domain.model.ProductDomain
 class DetailsAdapter() :
     ListAdapter<ProductDomain, DetailsAdapter.ViewHolder>(DiffCallback()) {
 
-    var total: Double = 0.0
+
     var click: (ProductDomain) -> Unit = {}
 
     override fun onCreateViewHolder(

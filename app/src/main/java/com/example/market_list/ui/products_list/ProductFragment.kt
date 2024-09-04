@@ -1,5 +1,6 @@
 package com.example.market_list.ui.products_list
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.market_list.R
 import com.example.market_list.databinding.FragmentProductListBinding
 import com.example.market_list.domain.model.FullListDomain
+import com.example.market_list.domain.model.ProductDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
@@ -47,6 +49,7 @@ class ProductFragment : Fragment() {
         viewModel.getDetails(args.id)
     }
 
+    @SuppressLint("DefaultLocale")
     private fun setupObserveState() {
         viewModel.state.observe(viewLifecycleOwner) {
             when (it) {
@@ -68,10 +71,16 @@ class ProductFragment : Fragment() {
                 is ProductState.Success -> {
                     Log.d("stateproduct", "Success")
                     successState(it.list)
+                    var totalListPrice = String.format(
+                        "%.2f", calcTotal(it.list.products)
+                    )
+                    binding.tvValorTotalValue.text = "R$ $totalListPrice"
                 }
             }
         }
     }
+
+    private fun calcTotal(products: List<ProductDomain>) = products.sumOf { it.totalPrice }
 
     private fun setupViewer() {
         binding.mtDetailList.title = args.listName
@@ -114,6 +123,7 @@ class ProductFragment : Fragment() {
         binding.rcDetailList.isVisible = false
         binding.tvTitleEmptyList.isVisible = true
         binding.tvValorTotalValue.isVisible = false
+        binding.pbLoading.isVisible = false
     }
 
     private fun errorState() {
