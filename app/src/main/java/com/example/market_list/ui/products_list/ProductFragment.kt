@@ -1,6 +1,7 @@
 package com.example.market_list.ui.products_list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.market_list.R
 import com.example.market_list.databinding.FragmentProductListBinding
+import com.example.market_list.domain.model.FullListDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
@@ -39,27 +41,33 @@ class ProductFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupViewer()
+        setupAdapater()
         setupListener()
         setupObserveState()
+        viewModel.getDetails(args.id)
     }
 
     private fun setupObserveState() {
         viewModel.state.observe(viewLifecycleOwner) {
             when (it) {
                 ProductState.Loading -> {
+                    Log.d("stateproduct", "Loading")
                     loadingState()
                 }
 
                 ProductState.Empty -> {
+                    Log.d("stateproduct", "Empy")
                     emptyState()
                 }
 
                 is ProductState.Error -> {
+                    Log.d("stateproduct", "Error")
                     errorState()
                 }
 
                 is ProductState.Success -> {
-                    successState()
+                    Log.d("stateproduct", "Success")
+                    successState(it.list)
                 }
             }
         }
@@ -67,6 +75,10 @@ class ProductFragment : Fragment() {
 
     private fun setupViewer() {
         binding.mtDetailList.title = args.listName
+    }
+
+    private fun setupAdapater() {
+        binding.rcDetailList.adapter = adapter
     }
 
     private fun setupListener() {
@@ -81,6 +93,7 @@ class ProductFragment : Fragment() {
         binding.fabAddItemDetail.setOnClickListener {
             handleShowDialog()
         }
+
         binding.mtDetailList.setNavigationOnClickListener {
             val action = ProductFragmentDirections.goToMarketListFragment()
             findNavController().navigate(action)
@@ -117,11 +130,12 @@ class ProductFragment : Fragment() {
         binding.tvValorTotalValue.isVisible = false
     }
 
-    private fun successState() {
+    private fun successState(list: FullListDomain) {
         binding.pbLoading.isVisible = false
         binding.rcDetailList.isVisible = true
         binding.tvTitleEmptyList.isVisible = false
         binding.tvValorTotalValue.isVisible = true
+        adapter.submitList(list.products)
     }
 }
 

@@ -26,6 +26,7 @@ class ProductViewModel(
     private val _state = MutableSharedFlow<ProductState>()
     val state: SharedFlow<ProductState> = _state
 
+
     fun getDetails(id: Int) = viewModelScope.launch {
         getDetailsUseCase(id)
             .flowOn(dispatcherIO)
