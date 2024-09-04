@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.market_list.data.db
 import com.example.market_list.data.repository.MarketListRepositoryImpl
-import com.example.market_list.domain.model.ProductDomain
 import com.example.market_list.domain.use_cases.products_list.GetProductsUseCase
 import com.example.market_list.domain.use_cases.products_list.InsertProductUseCase
 import kotlinx.coroutines.CoroutineDispatcher
@@ -43,8 +42,8 @@ class ProductViewModel(
             }
     }
 
-    fun insertProduct(name: String, price: Double, amount: Double) = viewModelScope.launch {
-        insertProductUseCase(name, price, amount)
+    fun insertProduct(name: String, price: String, amount: String, listId: Int) = viewModelScope.launch {
+        insertProductUseCase(name, price, amount, listId)
     }
 
     class Factory : ViewModelProvider.Factory {

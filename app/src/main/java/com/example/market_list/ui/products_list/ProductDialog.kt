@@ -3,6 +3,7 @@ package com.example.market_list.ui.products_list
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
@@ -21,14 +22,29 @@ class ProductDialog : DialogFragment() {
             AlertDialog.Builder(it)
                 .setView(binding.root)
                 .setPositiveButton("Confirmar") { _, _ ->
-                    setFragmentResult(
-                        FRAGMENT_RESULT,
-                        bundleOf(
-                            NAME_ITEM_VALUE to binding.etNameItem.text.toString(),
-                            UNIT_PRICE_VALUE to binding.etUnitPrice.text.toString(),
-                            AMOUNT_VALUE to binding.etAmount.text.toString()
+
+                    if (
+                        binding.etNameItem.text.toString().isEmpty() ||
+                        binding.etUnitPrice.text.toString().isEmpty() ||
+                        binding.etAmount.text.toString().isEmpty()
+                    ) {
+                        dismiss()
+                        Toast.makeText(
+                            requireContext(),
+                            "Preencha todos os campos",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        setFragmentResult(
+                            FRAGMENT_RESULT,
+                            bundleOf(
+                                NAME_ITEM_VALUE to binding.etNameItem.text.toString(),
+                                UNIT_PRICE_VALUE to binding.etUnitPrice.text.toString(),
+                                AMOUNT_VALUE to binding.etAmount.text.toString()
+                            )
                         )
-                    )
+                    }
+
                 }
                 .setNegativeButton("Cancelar") { _, _ ->
                     dismiss()

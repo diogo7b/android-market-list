@@ -71,13 +71,10 @@ class ProductFragment : Fragment() {
 
     private fun setupListener() {
         setFragmentResultListener(ProductDialog.FRAGMENT_RESULT) { _, bundle ->
-            val name = bundle.getString(ProductDialog.NAME_ITEM_VALUE)
-            val price = bundle.getString(ProductDialog.UNIT_PRICE_VALUE)
-            val amount = bundle.getString(ProductDialog.AMOUNT_VALUE)
-            if (name.isNullOrEmpty() || price.isNullOrEmpty() || amount.isNullOrEmpty()) {
-                viewModel.insertProduct(name, price, amount)
-
-            }
+            val name = bundle.getString(ProductDialog.NAME_ITEM_VALUE) ?: ""
+            val price = bundle.getString(ProductDialog.UNIT_PRICE_VALUE) ?: ""
+            val amount = bundle.getString(ProductDialog.AMOUNT_VALUE) ?: ""
+            viewModel.insertProduct(name, price, amount, args.id)
 
         }
 
