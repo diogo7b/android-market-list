@@ -1,6 +1,5 @@
 package com.example.market_list.ui.products_list
 
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -31,19 +30,20 @@ class DetailsAdapter() :
     inner class ViewHolder(
         private val binding: LayoutProductListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(item: ProductDomain) {
             item.apply {
                 binding.tvNameItem.text = name
-                binding.tvUnitPrice.text = unitPrice.toString()
+                binding.tvUnitPrice.text = "R$ ${unitPrice}"
                 binding.tvAmount.text = amount.toString()
-                binding.tvTotalPrice.text = totalPrice.toString()
+                binding.tvTotalPrice.text = "R$ ${totalPrice}"
             }
         }
     }
 }
 
-
 class DiffCallback : DiffUtil.ItemCallback<ProductDomain>() {
+
     override fun areItemsTheSame(oldItem: ProductDomain, newItem: ProductDomain) =
         oldItem == newItem
 
