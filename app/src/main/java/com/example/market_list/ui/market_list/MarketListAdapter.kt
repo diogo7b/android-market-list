@@ -1,11 +1,11 @@
-package com.example.market_list.ui.mainlist
+package com.example.market_list.ui.market_list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.market_list.databinding.ItemMarketListBinding
+import com.example.market_list.databinding.LayoutMarketListBinding
 import com.example.market_list.domain.model.MarketListDomain
 
 class MarketListAdapter() :
@@ -16,7 +16,7 @@ class MarketListAdapter() :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemMarketListBinding.inflate(inflater, parent, false)
+        val binding = LayoutMarketListBinding.inflate(inflater, parent, false)
         return ViewHolder(binding)
     }
 
@@ -25,7 +25,7 @@ class MarketListAdapter() :
     }
 
     inner class ViewHolder(
-        private val binding: ItemMarketListBinding
+        private val binding: LayoutMarketListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MarketListDomain) {
             binding.tvTitleList.text = item.listName

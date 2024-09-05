@@ -6,5 +6,5 @@ import androidx.room.Relation
 data class FullListEntity(
     @Embedded val marketList: MarketListEntity,
     @Relation(parentColumn = "id", entityColumn = "marketListId")
-    val products: List<ItemListEntity>,
+    val products: List<ProductEntity>,
 )

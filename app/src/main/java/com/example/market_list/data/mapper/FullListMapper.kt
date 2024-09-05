@@ -1,17 +1,17 @@
 package com.example.market_list.data.mapper
 
 import com.example.market_list.data.entity.FullListEntity
-import com.example.market_list.data.entity.ItemListEntity
+import com.example.market_list.data.entity.ProductEntity
 import com.example.market_list.data.entity.MarketListEntity
 import com.example.market_list.domain.model.FullListDomain
-import com.example.market_list.domain.model.ItemListDomain
+import com.example.market_list.domain.model.ProductDomain
 import com.example.market_list.domain.model.MarketListDomain
 
 object FullListMapper {
     fun FullListEntity.fullEntityToDomain() = FullListDomain(
         marketList = MarketListDomain(id = marketList.id, listName = marketList.listName),
         products = products.map {
-            ItemListDomain(
+            ProductDomain(
                 id = it.id,
                 name = it.name,
                 unitPrice = it.unitPrice,
@@ -25,7 +25,7 @@ object FullListMapper {
     fun FullListDomain.dullDomainToEntity() = FullListEntity(
         marketList = MarketListEntity(id = marketList.id, listName = marketList.listName),
         products = products.map {
-            ItemListEntity(
+            ProductEntity(
                 id = it.id,
                 name = it.name,
                 unitPrice = it.unitPrice,

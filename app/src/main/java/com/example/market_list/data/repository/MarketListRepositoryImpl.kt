@@ -2,12 +2,12 @@ package com.example.market_list.data.repository
 
 import com.example.market_list.data.dao.MarketListDao
 import com.example.market_list.data.mapper.FullListMapper.fullEntityToDomain
-import com.example.market_list.data.mapper.ItemListMapper.itemLisTtoEntity
 import com.example.market_list.data.mapper.MarketListMapper.toDomain
 import com.example.market_list.data.mapper.MarketListMapper.toEntity
+import com.example.market_list.data.mapper.ProductMapper.productToEntity
 import com.example.market_list.domain.model.FullListDomain
-import com.example.market_list.domain.model.ItemListDomain
 import com.example.market_list.domain.model.MarketListDomain
+import com.example.market_list.domain.model.ProductDomain
 import com.example.market_list.domain.repository.MarketListRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -35,22 +35,22 @@ class MarketListRepositoryImpl(private val dao: MarketListDao) : MarketListRepos
         dao.deleteList(marketList.toEntity())
     }
 
-    override suspend fun getDetails(id: Int): Flow<FullListDomain> =
+    override suspend fun getProducts(id: Int): Flow<FullListDomain> =
         withContext(Dispatchers.IO) {
             dao.getFullList(id).map {
                 it.fullEntityToDomain()
             }
         }
 
-    override suspend fun insertProduct(product: ItemListDomain) {
-        dao.insertItem(product.itemLisTtoEntity())
+    override suspend fun insertProduct(product: ProductDomain) = withContext(Dispatchers.IO) {
+        dao.insertProduct(product.productToEntity())
     }
 
-    override suspend fun deleteProduct(product: ItemListDomain) {
-        dao.deleteItem(product.itemLisTtoEntity())
+    override suspend fun deleteProduct(product: ProductDomain) {
+        dao.deleteProduct(product.productToEntity())
     }
 
-    override suspend fun updateProduct(product: ItemListDomain) {
-        dao.updateItem(product.itemLisTtoEntity())
+    override suspend fun updateProduct(product: ProductDomain) {
+        dao.updateProduct(product.productToEntity())
     }
 }

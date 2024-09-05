@@ -1,4 +1,4 @@
-package com.example.market_list.ui.mainlist
+package com.example.market_list.ui.market_list
 
 import android.os.Bundle
 
@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.market_list.R
 import com.example.market_list.databinding.FragmentMarketListBinding
 import com.example.market_list.domain.model.MarketListDomain
 import kotlinx.coroutines.flow.Flow
@@ -40,10 +41,10 @@ class MarketListFragment : Fragment() {
 
         setupAdapater()
         setupListener()
-        setupObserveStates()
+        setupObserveState()
     }
 
-    private fun setupObserveStates() {
+    private fun setupObserveState() {
         viewModel.state.observe(viewLifecycleOwner) {
             when (it) {
                 MarketListState.Empty -> {
@@ -95,7 +96,7 @@ class MarketListFragment : Fragment() {
         binding.pbLoading.isVisible = false
         binding.rcMarketLists.isVisible = false
         binding.tvTitleEmptyList.isVisible = true
-        binding.tvTitleEmptyList.text = "Ocorreu um erro"
+        binding.tvTitleEmptyList.text = getString(R.string.error_message)
     }
 
     private fun loadingState() {
@@ -105,7 +106,7 @@ class MarketListFragment : Fragment() {
     }
 
     private fun setupListener() {
-        setFragmentResultListener(MarketListMainDialog.FRAGMENT_RESULT) { requestKey, bundle ->
+        setFragmentResultListener(MarketListMainDialog.FRAGMENT_RESULT) { _, bundle ->
             val name = bundle.getString(MarketListMainDialog.EDIT_TEXT_VALUE) ?: ""
             viewModel.insertList(name)
         }
@@ -114,7 +115,7 @@ class MarketListFragment : Fragment() {
             handleShowDialog()
         }
         adapter.click = { list ->
-            val action = MarketListFragmentDirections.goToDetailListFragment(list.id, list.listName)
+            val action = MarketListFragmentDirections.goToProductFragment(list.id, list.listName)
             findNavController().navigate(action)
         }
 

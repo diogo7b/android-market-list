@@ -9,7 +9,8 @@ val Context.db: AppDatabase
     get() = Room.databaseBuilder(
         applicationContext,
         AppDatabase::class.java, "market_lists"
-    ).build()
+    ).fallbackToDestructiveMigration()
+        .build()
 
 private fun migrate(version: IntRange, sql: () -> String) =
     object : Migration(version.first, version.last) {

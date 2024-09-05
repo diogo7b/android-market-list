@@ -7,7 +7,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
 import com.example.market_list.data.entity.FullListEntity
-import com.example.market_list.data.entity.ItemListEntity
+import com.example.market_list.data.entity.ProductEntity
 import com.example.market_list.data.entity.MarketListEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -30,11 +30,11 @@ interface MarketListDao {
     fun getFullList(id: Int): Flow<FullListEntity>
 
     @Insert
-    fun insertItem(item: ItemListEntity)
+    fun insertProduct(item: ProductEntity)
 
     @Update
-    fun updateItem(item: ItemListEntity)
+    fun updateProduct(item: ProductEntity)
 
     @Delete
-    fun deleteItem(item: ItemListEntity)
+    fun deleteProduct(item: ProductEntity)
 }
