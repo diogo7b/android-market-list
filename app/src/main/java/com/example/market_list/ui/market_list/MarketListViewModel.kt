@@ -10,6 +10,7 @@ import com.example.market_list.domain.model.MarketListDomain
 import com.example.market_list.domain.use_cases.market_list.DeleteListUseCase
 import com.example.market_list.domain.use_cases.market_list.GetAllListsUseCase
 import com.example.market_list.domain.use_cases.market_list.InsertListUseCase
+import com.example.market_list.domain.use_cases.market_list.UpdateListUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -24,6 +25,7 @@ class MarketListViewModel(
     private val getAllListsUseCase: GetAllListsUseCase,
     private val insertListUseCase: InsertListUseCase,
     private val deleteListUseCase: DeleteListUseCase,
+    private val updateListUseCase: UpdateListUseCase,
     private val dispatcherIO: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
@@ -55,12 +57,12 @@ class MarketListViewModel(
     }
 
     fun deleteList(listName: MarketListDomain) = viewModelScope.launch {
-
         deleteListUseCase(listName)
-
-
     }
 
+    fun updateList(name: String) = viewModelScope.launch {
+        updateListUseCase()
+    }
 
     class Factory : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(

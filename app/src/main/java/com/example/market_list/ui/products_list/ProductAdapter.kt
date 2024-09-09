@@ -30,7 +30,6 @@ class DetailsAdapter() :
     inner class ViewHolder(
         private val binding: LayoutProductListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-
         fun bind(item: ProductDomain) {
             item.apply {
                 binding.tvNameItem.text = name

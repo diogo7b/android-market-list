@@ -10,17 +10,22 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import com.example.market_list.databinding.MarketListDialogBinding
 
-class MarketListMainDialog : DialogFragment() {
+class UpdateMarketListDialog : DialogFragment() {
 
     private lateinit var binding: MarketListDialogBinding
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val titleText =
+            arguments?.getString(TITLE_LIST) ?: throw IllegalArgumentException("Lista Inexistente")
 
         return activity?.let {
-            binding = MarketListDialogBinding.inflate(requireActivity().layoutInflater)
+            binding = MarketListDialogBinding.inflate(requireActivity().layoutInflater).apply {
+                etTitleList.setText(titleText)
+            }
 
-            //para utilizar o set fragment result precisa importar a dependencia androidx.fragment:fragment-ktx
-            AlertDialog.Builder(it).setView(binding.root).setPositiveButton("Confirmar") { _, _ ->
+            AlertDialog.Builder(it)
+                .setView(binding.root)
+                .setPositiveButton("Confirmar") { _, _ ->
                     if (binding.etTitleList.text.toString().isNotBlank()) {
                         setFragmentResult(
                             FRAGMENT_RESULT, bundleOf(
@@ -42,15 +47,20 @@ class MarketListMainDialog : DialogFragment() {
 
         const val FRAGMENT_RESULT = "FRAGMENT_RESULT"
         const val EDIT_TEXT_VALUE = "EDIT_TEXT_VALUE"
+        const val TITLE_LIST = "TITLE_LIST"
 
         fun show(
+            title: String,
             fragmentManager: FragmentManager,
             tag: String = MarketListMainDialog::class.simpleName.toString()
         ) {
-            MarketListMainDialog().show(fragmentManager, tag)
+            MarketListMainDialog()
+                .apply {
+                    arguments = bundleOf(
+                        TITLE_LIST to title
+                    )
+                }
+                .show(fragmentManager, tag)
         }
-
     }
 }
-
-

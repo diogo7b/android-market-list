@@ -1,6 +1,7 @@
 package com.example.market_list.ui.market_list
 
 import android.os.Bundle
+import android.util.Log
 
 import android.view.LayoutInflater
 import android.view.View
@@ -111,6 +112,11 @@ class MarketListFragment : Fragment() {
             viewModel.insertList(name)
         }
 
+        setFragmentResultListener(UpdateMarketListDialog.FRAGMENT_RESULT) { _, bundle ->
+            val name = bundle.getString(MarketListMainDialog.EDIT_TEXT_VALUE) ?: ""
+            viewModel.updateList(name)
+        }
+
         binding.fabAddList.setOnClickListener {
             handleShowDialog()
         }
@@ -118,7 +124,9 @@ class MarketListFragment : Fragment() {
             val action = MarketListFragmentDirections.goToProductFragment(list.id, list.listName)
             findNavController().navigate(action)
         }
-
+        adapter.update = { list ->
+            Log.d("teste_update", "update: $list")
+        }
         adapter.delete = { list ->
             viewModel.deleteList(list)
         }
