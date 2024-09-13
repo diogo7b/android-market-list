@@ -8,13 +8,16 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
+import com.example.market_list.R
 import com.example.market_list.databinding.MarketListDialogBinding
+import com.example.market_list.domain.model.MarketListDomain
 
 class UpdateMarketListDialog : DialogFragment() {
 
     private lateinit var binding: MarketListDialogBinding
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        binding.tvDialogTitle.text = getString(R.string.title_update_dialog)
         val titleText =
             arguments?.getString(TITLE_LIST) ?: throw IllegalArgumentException("Lista Inexistente")
 
@@ -48,16 +51,18 @@ class UpdateMarketListDialog : DialogFragment() {
         const val FRAGMENT_RESULT = "FRAGMENT_RESULT"
         const val EDIT_TEXT_VALUE = "EDIT_TEXT_VALUE"
         const val TITLE_LIST = "TITLE_LIST"
+        const val ID_LIST = "ID_LIST"
 
         fun show(
-            title: String,
+            list: MarketListDomain,
             fragmentManager: FragmentManager,
             tag: String = MarketListMainDialog::class.simpleName.toString()
         ) {
             MarketListMainDialog()
                 .apply {
                     arguments = bundleOf(
-                        TITLE_LIST to title
+                        TITLE_LIST to list.listName,
+                        ID_LIST to list.id
                     )
                 }
                 .show(fragmentManager, tag)

@@ -6,4 +6,5 @@
     <string name="hint_new_list">Digite o nome da lista</string>
     <string name="content_description_detail_btn">Botão para adicionar itens a lista de compras</string>
     <string name="error_message">Ocorreu um erro</string>
+    <string name="title_update_dialog">Novo título</string>
 </resources>

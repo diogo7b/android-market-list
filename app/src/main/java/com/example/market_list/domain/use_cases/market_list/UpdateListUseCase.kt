@@ -6,5 +6,7 @@ import com.example.market_list.domain.repository.MarketListRepository
 class UpdateListUseCase(
     private val repository: MarketListRepository
 ) {
-    suspend operator fun invoke(list: MarketListDomain) = repository.updateList(list)
+
+    suspend operator fun invoke(list:MarketListDomain) =
+        repository.updateList(list)
 }

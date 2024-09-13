@@ -2,7 +2,6 @@ package com.example.market_list.ui.market_list
 
 import android.os.Bundle
 import android.util.Log
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +21,7 @@ import kotlinx.coroutines.launch
 
 class MarketListFragment : Fragment() {
 
+    private var idList: Int = 0
     private val viewModel: MarketListViewModel by viewModels {
         MarketListViewModel.Factory()
     }
@@ -78,10 +78,6 @@ class MarketListFragment : Fragment() {
         adapter.submitList(marketLists)
     }
 
-    private fun setupAdapater() {
-        binding.rcMarketLists.adapter = adapter
-    }
-
     private fun emptyState() {
         binding.pbLoading.isVisible = false
         binding.rcMarketLists.isVisible = false
@@ -106,6 +102,10 @@ class MarketListFragment : Fragment() {
         binding.tvTitleEmptyList.isVisible = false
     }
 
+    private fun setupAdapater() {
+        binding.rcMarketLists.adapter = adapter
+    }
+
     private fun setupListener() {
         setFragmentResultListener(MarketListMainDialog.FRAGMENT_RESULT) { _, bundle ->
             val name = bundle.getString(MarketListMainDialog.EDIT_TEXT_VALUE) ?: ""
@@ -113,26 +113,32 @@ class MarketListFragment : Fragment() {
         }
 
         setFragmentResultListener(UpdateMarketListDialog.FRAGMENT_RESULT) { _, bundle ->
-            val name = bundle.getString(MarketListMainDialog.EDIT_TEXT_VALUE) ?: ""
-            viewModel.updateList(name)
+            val name = bundle.getString(UpdateMarketListDialog.EDIT_TEXT_VALUE) ?: ""
+            Log.d("UpdateDialog", "$idList, $name")
+            viewModel.updateList(idList, name)
         }
 
         binding.fabAddList.setOnClickListener {
-            handleShowDialog()
+            showDialogCreateList()
         }
         adapter.click = { list ->
             val action = MarketListFragmentDirections.goToProductFragment(list.id, list.listName)
             findNavController().navigate(action)
         }
         adapter.update = { list ->
-            Log.d("teste_update", "update: $list")
+            idList = list.id
+            showDialogUpdateList(list)
         }
         adapter.delete = { list ->
             viewModel.deleteList(list)
         }
     }
 
-    private fun handleShowDialog() {
+    private fun showDialogUpdateList(list: MarketListDomain) {
+        UpdateMarketListDialog.show(list, parentFragmentManager)
+    }
+
+    private fun showDialogCreateList() {
         MarketListMainDialog.show(parentFragmentManager)
     }
 

@@ -20,7 +20,6 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
-
 class MarketListViewModel(
     private val getAllListsUseCase: GetAllListsUseCase,
     private val insertListUseCase: InsertListUseCase,
@@ -60,11 +59,12 @@ class MarketListViewModel(
         deleteListUseCase(listName)
     }
 
-    fun updateList(name: String) = viewModelScope.launch {
-        updateListUseCase()
+    fun updateList(id: Int, name: String) = viewModelScope.launch {
+        updateListUseCase(MarketListDomain(id = id, listName = name))
     }
 
     class Factory : ViewModelProvider.Factory {
+
         override fun <T : ViewModel> create(
             modelClass: Class<T>,
             extras: CreationExtras
@@ -75,11 +75,13 @@ class MarketListViewModel(
             val getAllListsUseCase = GetAllListsUseCase(repository)
             val insertListUseCase = InsertListUseCase(repository)
             val deleteListUseCase = DeleteListUseCase(repository)
+            val updateListUseCase = UpdateListUseCase(repository)
 
             return MarketListViewModel(
                 getAllListsUseCase,
                 insertListUseCase,
-                deleteListUseCase
+                deleteListUseCase,
+                updateListUseCase
             ) as T
         }
     }
