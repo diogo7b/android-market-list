@@ -23,6 +23,7 @@ import kotlinx.coroutines.launch
 
 class ProductFragment : Fragment() {
 
+    private var idProductInUpdate: Int = 0
     private val viewModel: ProductViewModel by viewModels {
         ProductViewModel.Factory()
     }
@@ -54,22 +55,18 @@ class ProductFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner) {
             when (it) {
                 ProductState.Loading -> {
-                    Log.d("stateproduct", "Loading")
                     loadingState()
                 }
 
                 ProductState.Empty -> {
-                    Log.d("stateproduct", "Empy")
                     emptyState()
                 }
 
                 is ProductState.Error -> {
-                    Log.d("stateproduct", "Error")
                     errorState()
                 }
 
                 is ProductState.Success -> {
-                    Log.d("stateproduct", "Success")
                     successState(it.list)
                     var totalListPrice = String.format(
                         "%.2f", calcTotal(it.list.products)
@@ -96,7 +93,6 @@ class ProductFragment : Fragment() {
             val price = bundle.getString(ProductDialog.UNIT_PRICE_VALUE) ?: ""
             val amount = bundle.getString(ProductDialog.AMOUNT_VALUE) ?: ""
             viewModel.insertProduct(name, price, amount, args.id)
-
         }
 
         binding.fabAddItemDetail.setOnClickListener {
@@ -106,6 +102,11 @@ class ProductFragment : Fragment() {
         binding.mtDetailList.setNavigationOnClickListener {
             val action = ProductFragmentDirections.goToMarketListFragment()
             findNavController().navigate(action)
+        }
+
+        adapter.longClick = { item ->
+            idProductInUpdate = item.id
+            UpdateProductDialog.show(item, parentFragmentManager)
         }
     }
 

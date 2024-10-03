@@ -114,7 +114,6 @@ class MarketListFragment : Fragment() {
 
         setFragmentResultListener(UpdateMarketListDialog.FRAGMENT_RESULT) { _, bundle ->
             val name = bundle.getString(UpdateMarketListDialog.EDIT_TEXT_VALUE) ?: ""
-            Log.d("UpdateDialog", "$idList, $name")
             viewModel.updateList(idList, name)
         }
 

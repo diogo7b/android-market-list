@@ -11,8 +11,8 @@ import com.example.market_list.domain.model.ProductDomain
 class DetailsAdapter() :
     ListAdapter<ProductDomain, DetailsAdapter.ViewHolder>(DiffCallback()) {
 
-
     var click: (ProductDomain) -> Unit = {}
+    var longClick: (ProductDomain) -> Unit = {}
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -30,6 +30,7 @@ class DetailsAdapter() :
     inner class ViewHolder(
         private val binding: LayoutProductListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(item: ProductDomain) {
             item.apply {
                 binding.tvNameItem.text = name
@@ -37,6 +38,12 @@ class DetailsAdapter() :
                 binding.tvAmount.text = amount.toString()
                 binding.tvTotalPrice.text = "R$ ${totalPrice}"
             }
+
+            binding.root.setOnLongClickListener {
+                longClick(item)
+                true
+            }
+
         }
     }
 }
