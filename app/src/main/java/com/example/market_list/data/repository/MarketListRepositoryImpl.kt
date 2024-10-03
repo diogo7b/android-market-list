@@ -27,7 +27,7 @@ class MarketListRepositoryImpl(private val dao: MarketListDao) : MarketListRepos
         dao.insertList(list.toEntity())
     }
 
-    override suspend fun updateList(list: MarketListDomain) {
+    override suspend fun updateList(list: MarketListDomain) = withContext(Dispatchers.IO) {
         dao.updateList(list.toEntity())
     }
 
