@@ -6,8 +6,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.market_list.data.db
 import com.example.market_list.data.repository.MarketListRepositoryImpl
+import com.example.market_list.domain.model.ProductDomain
+import com.example.market_list.domain.use_cases.products_list.DeleteProductsUseCase
 import com.example.market_list.domain.use_cases.products_list.GetProductsUseCase
 import com.example.market_list.domain.use_cases.products_list.InsertProductUseCase
+import com.example.market_list.domain.use_cases.products_list.UpdateProductUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -20,12 +23,13 @@ import kotlinx.coroutines.launch
 class ProductViewModel(
     private val getDetailsUseCase: GetProductsUseCase,
     private val insertProductUseCase: InsertProductUseCase,
+    private val deleteProductUseCase: DeleteProductsUseCase,
+    private val updtateProductUseCase: UpdateProductUseCase,
     private val dispatcherIO: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
     private val _state = MutableSharedFlow<ProductState>()
     val state: SharedFlow<ProductState> = _state
-
 
     fun getDetails(id: Int) = viewModelScope.launch {
         getDetailsUseCase(id)
@@ -43,8 +47,17 @@ class ProductViewModel(
             }
     }
 
-    fun insertProduct(name: String, price: String, amount: String, listId: Int) = viewModelScope.launch {
-        insertProductUseCase(name, price, amount, listId)
+    fun insertProduct(name: String, price: String, amount: String, listId: Int) =
+        viewModelScope.launch {
+            insertProductUseCase(name, price, amount, listId)
+        }
+
+    fun deleteProduct(product: ProductDomain) = viewModelScope.launch {
+        deleteProductUseCase(product)
+    }
+
+    fun updateProduct(product: ProductDomain) = viewModelScope.launch {
+        updtateProductUseCase(product)
     }
 
     class Factory : ViewModelProvider.Factory {
@@ -58,8 +71,15 @@ class ProductViewModel(
             val repository = MarketListRepositoryImpl(application.db.marketListDao())
             val getDetailsUseCase = GetProductsUseCase(repository)
             val insertProductUseCase = InsertProductUseCase(repository)
+            val deleteProductUseCase = DeleteProductsUseCase(repository)
+            val updateProductUseCase = UpdateProductUseCase(repository)
 
-            return ProductViewModel(getDetailsUseCase, insertProductUseCase) as T
+            return ProductViewModel(
+                getDetailsUseCase,
+                insertProductUseCase,
+                deleteProductUseCase,
+                updateProductUseCase
+            ) as T
         }
     }
 

@@ -13,6 +13,7 @@ class MarketListAdapter() :
 
     var click: (MarketListDomain) -> Unit = {}
     var delete: (MarketListDomain) -> Unit = {}
+    var update: (MarketListDomain) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -27,6 +28,7 @@ class MarketListAdapter() :
     inner class ViewHolder(
         private val binding: LayoutMarketListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(item: MarketListDomain) {
             binding.tvTitleList.text = item.listName
             binding.root.setOnClickListener {
@@ -35,11 +37,16 @@ class MarketListAdapter() :
             binding.ivDelete.setOnClickListener {
                 delete(item)
             }
+            binding.root.setOnLongClickListener {
+                update(item)
+                true
+            }
         }
     }
 }
 
 class DiffCallback : DiffUtil.ItemCallback<MarketListDomain>() {
+
     override fun areItemsTheSame(oldItem: MarketListDomain, newItem: MarketListDomain) =
         oldItem == newItem
 
