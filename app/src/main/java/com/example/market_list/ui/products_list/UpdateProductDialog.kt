@@ -18,32 +18,22 @@ class UpdateProductDialog : DialogFragment() {
     private lateinit var binding: ProductDialogBinding
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val name = arguments?.getString(NAME_ITEM_VALUE) ?: throw IllegalArgumentException(
-            getString(
-                R.string.empty_field
-            )
-        )
-        val price = arguments?.getString(UNIT_PRICE_VALUE) ?: throw IllegalArgumentException(
-            getString(
-                R.string.empty_field
-            )
-        )
-        val amount = arguments?.getString(AMOUNT_VALUE) ?: throw IllegalArgumentException(
-            getString(
-                R.string.empty_field
-            )
-        )
 
         return activity?.let {
+            val name = arguments?.getString(NAME_ITEM_VALUE) ?: "Campo vazio"
+
+            val price = arguments?.getString(UNIT_PRICE_VALUE) ?: "Campo vazio"
+
+            val amount = arguments?.getString(AMOUNT_VALUE) ?: "Campo vazio"
             binding = ProductDialogBinding.inflate(requireActivity().layoutInflater).apply {
                 etNameItem.setText(name)
                 etUnitPrice.setText(price)
                 etAmount.setText(amount)
             }
+            Log.i("teste", binding.etNameItem.text.toString())
             AlertDialog.Builder(it)
                 .setView(binding.root)
                 .setPositiveButton("Confirmar") { _, _ ->
-
                     if (
                         binding.etNameItem.text.toString().isEmpty() ||
                         binding.etUnitPrice.text.toString().isEmpty() ||
@@ -83,13 +73,13 @@ class UpdateProductDialog : DialogFragment() {
         fun show(
             product: ProductDomain,
             fragmentManager: FragmentManager,
-            tag: String = ProductDialog::class.simpleName.toString()
+            tag: String = UpdateProductDialog::class.simpleName.toString()
         ) {
-            ProductDialog().apply {
+            UpdateProductDialog().apply {
                 arguments = bundleOf(
                     NAME_ITEM_VALUE to product.name,
-                    UNIT_PRICE_VALUE to product.unitPrice,
-                    AMOUNT_VALUE to product.amount
+                    UNIT_PRICE_VALUE to product.unitPrice.toString(),
+                    AMOUNT_VALUE to product.amount.toString()
                 )
             }.show(fragmentManager, tag)
         }

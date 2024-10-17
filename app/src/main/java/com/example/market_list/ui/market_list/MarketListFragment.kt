@@ -1,7 +1,6 @@
 package com.example.market_list.ui.market_list
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -112,10 +111,10 @@ class MarketListFragment : Fragment() {
             viewModel.insertList(name)
         }
 
-        setFragmentResultListener(UpdateMarketListDialog.FRAGMENT_RESULT) { _, bundle ->
+       /* setFragmentResultListener(UpdateMarketListDialog.FRAGMENT_RESULT) { _, bundle ->
             val name = bundle.getString(UpdateMarketListDialog.EDIT_TEXT_VALUE) ?: ""
             viewModel.updateList(idList, name)
-        }
+        }*/
 
         binding.fabAddList.setOnClickListener {
             showDialogCreateList()
@@ -134,7 +133,7 @@ class MarketListFragment : Fragment() {
     }
 
     private fun showDialogUpdateList(list: MarketListDomain) {
-        UpdateMarketListDialog.show(list, parentFragmentManager)
+       TODO("Implement show Dialog")
     }
 
     private fun showDialogCreateList() {
