@@ -30,7 +30,6 @@ class UpdateProductDialog : DialogFragment() {
                 etUnitPrice.setText(price)
                 etAmount.setText(amount)
             }
-            Log.i("teste", binding.etNameItem.text.toString())
             AlertDialog.Builder(it)
                 .setView(binding.root)
                 .setPositiveButton("Confirmar") { _, _ ->

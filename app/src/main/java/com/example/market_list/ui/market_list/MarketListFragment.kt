@@ -20,7 +20,6 @@ import kotlinx.coroutines.launch
 
 class MarketListFragment : Fragment() {
 
-    private var idList: Int = 0
     private val viewModel: MarketListViewModel by viewModels {
         MarketListViewModel.Factory()
     }
@@ -111,10 +110,11 @@ class MarketListFragment : Fragment() {
             viewModel.insertList(name)
         }
 
-       /* setFragmentResultListener(UpdateMarketListDialog.FRAGMENT_RESULT) { _, bundle ->
+        setFragmentResultListener(UpdateMarketListDialog.FRAGMENT_RESULT) { _, bundle ->
+            val idList = bundle.getString(UpdateMarketListDialog.ID_LIST) ?: ""
             val name = bundle.getString(UpdateMarketListDialog.EDIT_TEXT_VALUE) ?: ""
-            viewModel.updateList(idList, name)
-        }*/
+            viewModel.updateList(idList.toInt(), name)
+        }
 
         binding.fabAddList.setOnClickListener {
             showDialogCreateList()
@@ -124,7 +124,6 @@ class MarketListFragment : Fragment() {
             findNavController().navigate(action)
         }
         adapter.update = { list ->
-            idList = list.id
             showDialogUpdateList(list)
         }
         adapter.delete = { list ->
@@ -133,7 +132,7 @@ class MarketListFragment : Fragment() {
     }
 
     private fun showDialogUpdateList(list: MarketListDomain) {
-       TODO("Implement show Dialog")
+        UpdateMarketListDialog.show(list, parentFragmentManager)
     }
 
     private fun showDialogCreateList() {
