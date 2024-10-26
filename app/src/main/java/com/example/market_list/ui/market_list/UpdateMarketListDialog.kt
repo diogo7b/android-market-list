@@ -31,7 +31,7 @@ class UpdateMarketListDialog : DialogFragment() {
                         dismiss()
                     } else {
                         setFragmentResult(
-                            FRAGMENT_RESULT,
+                            FRAGMENT_RESULT_UPDATE,
                             bundleOf(
                                 EDIT_TEXT_VALUE to binding.etTitleList.text.toString(),
                                 ID_LIST to listId
@@ -46,7 +46,7 @@ class UpdateMarketListDialog : DialogFragment() {
 
     companion object {
 
-        const val FRAGMENT_RESULT = "FRAGMENT_RESULT"
+        const val FRAGMENT_RESULT_UPDATE = "FRAGMENT_RESULT_UPDATE"
         const val EDIT_TEXT_VALUE = "EDIT_TEXT_VALUE"
         const val ID_LIST = "ID_LIST"
 

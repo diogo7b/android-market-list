@@ -81,13 +81,13 @@ class MarketListFragment : Fragment() {
     }
 
     private fun setupListener() {
-        setFragmentResultListener(MarketListMainDialog.FRAGMENT_RESULT) { _, bundle ->
+        setFragmentResultListener(MarketListMainDialog.FRAGMENT_RESULT_CREATE) { _, bundle ->
             val name = bundle.getString(MarketListMainDialog.EDIT_TEXT_VALUE) ?: ""
             viewModel.insertList(name)
         }
 
-        setFragmentResultListener(UpdateMarketListDialog.FRAGMENT_RESULT) { _, bundle ->
-            val idList = bundle.getString(UpdateMarketListDialog.ID_LIST) ?: ""
+        setFragmentResultListener(UpdateMarketListDialog.FRAGMENT_RESULT_UPDATE) { _, bundle ->
+            val idList: String = bundle.getString(UpdateMarketListDialog.ID_LIST) ?: ""
             val name = bundle.getString(UpdateMarketListDialog.EDIT_TEXT_VALUE) ?: ""
             viewModel.updateList(idList.toInt(), name)
         }
@@ -104,7 +104,7 @@ class MarketListFragment : Fragment() {
     }
 
     private fun setupObserveState() {
-        viewModel.state.observe(viewLifecycleOwner) { state ->
+        viewModel.state.observe(owner = viewLifecycleOwner) { state ->
             when (state) {
                 MarketListState.Empty -> showEmptyState()
                 is MarketListState.Error -> showErrorState()

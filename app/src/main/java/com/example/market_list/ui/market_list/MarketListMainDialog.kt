@@ -17,13 +17,17 @@ class MarketListMainDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         return activity?.let {
-            binding = MarketListDialogBinding.inflate(requireActivity().layoutInflater)
+            binding = MarketListDialogBinding.inflate(requireActivity().layoutInflater).apply {
+                this.tvDialogTitle.setText("Nova Lista")
+                this.etTitleList.requestFocus()
+            }
 
             //para utilizar o set fragment result precisa importar a dependencia androidx.fragment:fragment-ktx
-            AlertDialog.Builder(it).setView(binding.root).setPositiveButton("Confirmar") { _, _ ->
+            AlertDialog.Builder(it).setView(binding.root)
+                .setPositiveButton("Confirmar") { _, _ ->
                     if (binding.etTitleList.text.toString().isNotBlank()) {
                         setFragmentResult(
-                            FRAGMENT_RESULT, bundleOf(
+                            FRAGMENT_RESULT_CREATE, bundleOf(
                                 EDIT_TEXT_VALUE to binding.etTitleList.text.toString()
                             )
                         )
@@ -40,7 +44,7 @@ class MarketListMainDialog : DialogFragment() {
 
     companion object {
 
-        const val FRAGMENT_RESULT = "FRAGMENT_RESULT"
+        const val FRAGMENT_RESULT_CREATE = "FRAGMENT_RESULT_CREATE"
         const val EDIT_TEXT_VALUE = "EDIT_TEXT_VALUE"
 
         fun show(
