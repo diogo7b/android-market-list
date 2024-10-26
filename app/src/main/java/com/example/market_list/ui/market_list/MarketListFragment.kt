@@ -43,43 +43,18 @@ class MarketListFragment : Fragment() {
         setupObserveState()
     }
 
-    private fun setupObserveState() {
-        viewModel.state.observe(viewLifecycleOwner) {
-            when (it) {
-                MarketListState.Empty -> {
-                    emptyState()
-
-                }
-
-                is MarketListState.Error -> {
-                    errorState()
-
-                }
-
-                MarketListState.Loading -> {
-                    loadingState()
-
-                }
-
-                is MarketListState.Success -> {
-                    successState(it.marketList)
-
-                }
-            }
-        }
-    }
-
-    private fun successState(marketLists: List<MarketListDomain>) {
-        binding.pbLoading.isVisible = false
-        binding.tvTitleEmptyList.isVisible = false
-        binding.rcMarketLists.isVisible = true
+    //States
+    private fun showSuccessState(marketLists: List<MarketListDomain>) = with(binding) {
+        pbLoading.isVisible = false
+        tvTitleEmptyList.isVisible = false
+        rcMarketLists.isVisible = true
         adapter.submitList(marketLists)
     }
 
-    private fun emptyState() {
-        binding.pbLoading.isVisible = false
-        binding.rcMarketLists.isVisible = false
-        binding.tvTitleEmptyList.isVisible = true
+    private fun showEmptyState() = with(binding) {
+        pbLoading.isVisible = false
+        rcMarketLists.isVisible = false
+        tvTitleEmptyList.isVisible = true
         Toast.makeText(
             requireContext(),
             "Sem receitas no momento",
@@ -87,19 +62,20 @@ class MarketListFragment : Fragment() {
         ).show()
     }
 
-    private fun errorState() {
-        binding.pbLoading.isVisible = false
-        binding.rcMarketLists.isVisible = false
-        binding.tvTitleEmptyList.isVisible = true
-        binding.tvTitleEmptyList.text = getString(R.string.error_message)
+    private fun showErrorState() = with(binding) {
+        pbLoading.isVisible = false
+        rcMarketLists.isVisible = false
+        tvTitleEmptyList.isVisible = true
+        tvTitleEmptyList.text = getString(R.string.error_message)
     }
 
-    private fun loadingState() {
-        binding.pbLoading.isVisible = true
-        binding.rcMarketLists.isVisible = false
-        binding.tvTitleEmptyList.isVisible = false
+    private fun showLoadingState() = with(binding) {
+        pbLoading.isVisible = true
+        rcMarketLists.isVisible = false
+        tvTitleEmptyList.isVisible = false
     }
 
+    //Setup Functions
     private fun setupAdapater() {
         binding.rcMarketLists.adapter = adapter
     }
@@ -119,16 +95,30 @@ class MarketListFragment : Fragment() {
         binding.fabAddList.setOnClickListener {
             showDialogCreateList()
         }
-        adapter.click = { list ->
-            val action = MarketListFragmentDirections.goToProductFragment(list.id, list.listName)
-            findNavController().navigate(action)
+
+        adapter.apply {
+            click = { list -> navigateToProductFragment(list) }
+            update = { list -> showDialogUpdateList(list) }
+            delete = { list -> viewModel.deleteList(list) }
         }
-        adapter.update = { list ->
-            showDialogUpdateList(list)
+    }
+
+    private fun setupObserveState() {
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                MarketListState.Empty -> showEmptyState()
+                is MarketListState.Error -> showErrorState()
+                MarketListState.Loading -> showLoadingState()
+                is MarketListState.Success -> showSuccessState(state.marketList)
+            }
         }
-        adapter.delete = { list ->
-            viewModel.deleteList(list)
-        }
+    }
+
+    //Navigation and Dialogs
+    private fun navigateToProductFragment(list: MarketListDomain) {
+        val action =
+            MarketListFragmentDirections.goToProductFragment(list.id, list.listName)
+        findNavController().navigate(action)
     }
 
     private fun showDialogUpdateList(list: MarketListDomain) {
