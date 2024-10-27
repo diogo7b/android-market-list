@@ -36,7 +36,7 @@ class ProductDialog : DialogFragment() {
                         ).show()
                     } else {
                         setFragmentResult(
-                            FRAGMENT_RESULT,
+                            FRAGMENT_RESULT_CREATE,
                             bundleOf(
                                 NAME_ITEM_VALUE to binding.etNameItem.text.toString(),
                                 UNIT_PRICE_VALUE to binding.etUnitPrice.text.toString(),
@@ -54,7 +54,7 @@ class ProductDialog : DialogFragment() {
 
     companion object {
 
-        const val FRAGMENT_RESULT = "FRAGMENT_RESULT"
+        const val FRAGMENT_RESULT_CREATE = "FRAGMENT_RESULT_CREATE"
         const val NAME_ITEM_VALUE = "NAME_ITEM_VALUE"
         const val UNIT_PRICE_VALUE = "UNIT_PRICE_VALUE"
         const val AMOUNT_VALUE = "AMOUNT_VALUE"

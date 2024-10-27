@@ -56,8 +56,22 @@ class ProductViewModel(
         deleteProductUseCase(product)
     }
 
-    fun updateProduct(product: ProductDomain) = viewModelScope.launch {
-        updtateProductUseCase(product)
+    fun updateProduct(
+        idProduct: Int,
+        name: String,
+        unitPrice: Double,
+        amount: Double,
+        marketListId: Int
+    ) = viewModelScope.launch {
+        updtateProductUseCase(
+            ProductDomain(
+                id = idProduct,
+                name = name,
+                unitPrice = unitPrice,
+                amount = amount,
+                marketListId = marketListId
+            )
+        )
     }
 
     class Factory : ViewModelProvider.Factory {

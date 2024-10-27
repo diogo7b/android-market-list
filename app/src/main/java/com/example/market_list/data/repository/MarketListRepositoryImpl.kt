@@ -46,11 +46,11 @@ class MarketListRepositoryImpl(private val dao: MarketListDao) : MarketListRepos
         dao.insertProduct(product.productToEntity())
     }
 
-    override suspend fun deleteProduct(product: ProductDomain) {
+    override suspend fun deleteProduct(product: ProductDomain) = withContext(Dispatchers.IO) {
         dao.deleteProduct(product.productToEntity())
     }
 
-    override suspend fun updateProduct(product: ProductDomain) {
+    override suspend fun updateProduct(product: ProductDomain) = withContext(Dispatchers.IO) {
         dao.updateProduct(product.productToEntity())
     }
 }
