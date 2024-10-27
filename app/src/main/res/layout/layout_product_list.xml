@@ -26,6 +26,49 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="tangerina vermelha" />
 
+
+        <TextView
+            android:id="@+id/tv_desc_amount"
+            style="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:text="Quantidade U/Kg:"
+            app:layout_constraintStart_toStartOf="@id/tv_name_item"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_item"
+            tools:text="Quantidade U/Kg:" />
+
+        <TextView
+            android:id="@+id/tv_amount"
+            style="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/tv_desc_amount"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_item"
+            tools:text="15" />
+
+        <TextView
+            android:id="@+id/tv_currency_symblo"
+            style="@style/TextAppearance.Material3.HeadlineMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/tv_name_item"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="R$" />
+
+        <TextView
+            android:id="@+id/tv_total_price"
+            style="@style/TextAppearance.Material3.HeadlineMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_currency_symblo"
+            tools:text="0,00" />
+
         <TextView
             android:id="@+id/tv_desc_unit_price"
             style="@style/TextAppearance.Material3.BodyLarge"
@@ -33,6 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp"
             android:text="Preço:"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="@id/tv_name_item"
             app:layout_constraintTop_toBottomOf="@id/tv_name_item"
             tools:text="Preço:" />
@@ -44,43 +88,10 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp"
             android:layout_marginStart="8dp"
+            android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/tv_desc_unit_price"
             app:layout_constraintTop_toBottomOf="@id/tv_name_item"
-            tools:text="R$ 000,00" />
-
-        <TextView
-            android:id="@+id/tv_desc_amount"
-            style="@style/TextAppearance.Material3.BodyLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="8dp"
-            android:text="Quantidade U/Kg:"
-            app:layout_constraintStart_toStartOf="@id/tv_name_item"
-            app:layout_constraintTop_toBottomOf="@id/tv_unit_price"
-            tools:text="Quantidade U/Kg:" />
-
-        <TextView
-            android:id="@+id/tv_amount"
-            style="@style/TextAppearance.Material3.BodyLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="8dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@+id/tv_desc_amount"
-            app:layout_constraintTop_toBottomOf="@id/tv_unit_price"
-            tools:text="15" />
-
-        <TextView
-            android:id="@+id/tv_total_price"
-            style="@style/TextAppearance.Material3.TitleLarge"
-            android:layout_width="70dp"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="4dp"
-            android:lines="3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="R$ 000,00" />
+            tools:text="R$ 0,00" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

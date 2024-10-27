@@ -9,7 +9,7 @@ class InsertProductUseCase(private val repository: MarketListRepository) {
         repository.insertProduct(
             ProductDomain(
                 name = name,
-                unitPrice = price.toDouble(),
+                price = price.toDouble(),
                 amount = amount.toDouble(),
                 marketListId = marketListId
             )

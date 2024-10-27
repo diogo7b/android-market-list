@@ -34,9 +34,8 @@ class DetailsAdapter() :
         fun bind(item: ProductDomain) {
             item.apply {
                 binding.tvNameItem.text = name
-                binding.tvUnitPrice.text = "R$ ${unitPrice}"
+                binding.tvTotalPrice.text = "R$ ${price}"
                 binding.tvAmount.text = amount.toString()
-                binding.tvTotalPrice.text = "R$ ${totalPrice}"
             }
 
             binding.root.setOnLongClickListener {

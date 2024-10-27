@@ -8,4 +8,5 @@
     <string name="error_message">Ocorreu um erro</string>
     <string name="title_update_dialog">Novo título</string>
     <string name="empty_field">Campo Vazio</string>
+    <string name="add_product">Adicionar Produto</string>
 </resources>

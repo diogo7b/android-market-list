@@ -67,7 +67,7 @@ class ProductViewModel(
             ProductDomain(
                 id = idProduct,
                 name = name,
-                unitPrice = unitPrice,
+                price = unitPrice,
                 amount = amount,
                 marketListId = marketListId
             )

@@ -24,9 +24,9 @@ class ProductDialog : DialogFragment() {
                 .setPositiveButton("Confirmar") { _, _ ->
 
                     if (
-                        binding.etNameItem.text.toString().isEmpty() ||
-                        binding.etUnitPrice.text.toString().isEmpty() ||
-                        binding.etAmount.text.toString().isEmpty()
+                        binding.tiNameItem.editText?.text.isNullOrBlank() ||
+                        binding.tiUnitPrice.editText?.text.isNullOrBlank() ||
+                        binding.tiAmount.editText?.text.isNullOrBlank()
                     ) {
                         dismiss()
                         Toast.makeText(
@@ -38,9 +38,9 @@ class ProductDialog : DialogFragment() {
                         setFragmentResult(
                             FRAGMENT_RESULT_CREATE,
                             bundleOf(
-                                NAME_ITEM_VALUE to binding.etNameItem.text.toString(),
-                                UNIT_PRICE_VALUE to binding.etUnitPrice.text.toString(),
-                                AMOUNT_VALUE to binding.etAmount.text.toString()
+                                NAME_ITEM_VALUE to binding.tiNameItem.editText?.text.toString(),
+                                UNIT_PRICE_VALUE to binding.tiUnitPrice.editText?.text.toString(),
+                                AMOUNT_VALUE to binding.tiAmount.editText?.text.toString()
                             )
                         )
                     }

@@ -76,7 +76,7 @@ class ProductFragment : Fragment() {
         }
     }
 
-    private fun calcTotal(products: List<ProductDomain>) = products.sumOf { it.totalPrice }
+    private fun calcTotal(products: List<ProductDomain>) = products.sumOf { it.price }
 
     private fun setupViewer() {
         binding.mtDetailList.title = args.listName
