@@ -20,7 +20,6 @@ import kotlinx.coroutines.launch
 
 class MarketListFragment : Fragment() {
 
-    private var idList: Int = 0
     private val viewModel: MarketListViewModel by viewModels {
         MarketListViewModel.Factory()
     }
@@ -44,43 +43,18 @@ class MarketListFragment : Fragment() {
         setupObserveState()
     }
 
-    private fun setupObserveState() {
-        viewModel.state.observe(viewLifecycleOwner) {
-            when (it) {
-                MarketListState.Empty -> {
-                    emptyState()
-
-                }
-
-                is MarketListState.Error -> {
-                    errorState()
-
-                }
-
-                MarketListState.Loading -> {
-                    loadingState()
-
-                }
-
-                is MarketListState.Success -> {
-                    successState(it.marketList)
-
-                }
-            }
-        }
-    }
-
-    private fun successState(marketLists: List<MarketListDomain>) {
-        binding.pbLoading.isVisible = false
-        binding.tvTitleEmptyList.isVisible = false
-        binding.rcMarketLists.isVisible = true
+    //States
+    private fun showSuccessState(marketLists: List<MarketListDomain>) = with(binding) {
+        pbLoading.isVisible = false
+        tvTitleEmptyList.isVisible = false
+        rcMarketLists.isVisible = true
         adapter.submitList(marketLists)
     }
 
-    private fun emptyState() {
-        binding.pbLoading.isVisible = false
-        binding.rcMarketLists.isVisible = false
-        binding.tvTitleEmptyList.isVisible = true
+    private fun showEmptyState() = with(binding) {
+        pbLoading.isVisible = false
+        rcMarketLists.isVisible = false
+        tvTitleEmptyList.isVisible = true
         Toast.makeText(
             requireContext(),
             "Sem receitas no momento",
@@ -88,52 +62,67 @@ class MarketListFragment : Fragment() {
         ).show()
     }
 
-    private fun errorState() {
-        binding.pbLoading.isVisible = false
-        binding.rcMarketLists.isVisible = false
-        binding.tvTitleEmptyList.isVisible = true
-        binding.tvTitleEmptyList.text = getString(R.string.error_message)
+    private fun showErrorState() = with(binding) {
+        pbLoading.isVisible = false
+        rcMarketLists.isVisible = false
+        tvTitleEmptyList.isVisible = true
+        tvTitleEmptyList.text = getString(R.string.error_message)
     }
 
-    private fun loadingState() {
-        binding.pbLoading.isVisible = true
-        binding.rcMarketLists.isVisible = false
-        binding.tvTitleEmptyList.isVisible = false
+    private fun showLoadingState() = with(binding) {
+        pbLoading.isVisible = true
+        rcMarketLists.isVisible = false
+        tvTitleEmptyList.isVisible = false
     }
 
+    //Setup Functions
     private fun setupAdapater() {
         binding.rcMarketLists.adapter = adapter
     }
 
     private fun setupListener() {
-        setFragmentResultListener(MarketListMainDialog.FRAGMENT_RESULT) { _, bundle ->
+        setFragmentResultListener(MarketListMainDialog.FRAGMENT_RESULT_CREATE) { _, bundle ->
             val name = bundle.getString(MarketListMainDialog.EDIT_TEXT_VALUE) ?: ""
             viewModel.insertList(name)
         }
 
-       /* setFragmentResultListener(UpdateMarketListDialog.FRAGMENT_RESULT) { _, bundle ->
+        setFragmentResultListener(UpdateMarketListDialog.FRAGMENT_RESULT_UPDATE) { _, bundle ->
+            val idList: String = bundle.getString(UpdateMarketListDialog.ID_LIST) ?: ""
             val name = bundle.getString(UpdateMarketListDialog.EDIT_TEXT_VALUE) ?: ""
-            viewModel.updateList(idList, name)
-        }*/
+            viewModel.updateList(idList.toInt(), name)
+        }
 
         binding.fabAddList.setOnClickListener {
             showDialogCreateList()
         }
-        adapter.click = { list ->
-            val action = MarketListFragmentDirections.goToProductFragment(list.id, list.listName)
-            findNavController().navigate(action)
-        }
-        adapter.update = { list ->
-            idList = list.id
-            showDialogUpdateList(list)
-        }
-        adapter.delete = { list ->
-            viewModel.deleteList(list)
+
+        adapter.apply {
+            click = { list -> navigateToProductFragment(list) }
+            update = { list -> showDialogUpdateList(list) }
+            delete = { list -> viewModel.deleteList(list) }
         }
     }
 
+    private fun setupObserveState() {
+        viewModel.state.observe(owner = viewLifecycleOwner) { state ->
+            when (state) {
+                MarketListState.Empty -> showEmptyState()
+                is MarketListState.Error -> showErrorState()
+                MarketListState.Loading -> showLoadingState()
+                is MarketListState.Success -> showSuccessState(state.marketList)
+            }
+        }
+    }
+
+    //Navigation and Dialogs
+    private fun navigateToProductFragment(list: MarketListDomain) {
+        val action =
+            MarketListFragmentDirections.goToProductFragment(list.id, list.listName)
+        findNavController().navigate(action)
+    }
+
     private fun showDialogUpdateList(list: MarketListDomain) {
-       TODO("Implement show Dialog")
+        UpdateMarketListDialog.show(list, parentFragmentManager)
     }
 
     private fun showDialogCreateList() {

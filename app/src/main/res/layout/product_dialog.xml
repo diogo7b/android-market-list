@@ -4,50 +4,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp">
+    android:padding="8dp">
 
     <TextView
         android:id="@+id/tv_dialog_title"
         style="@style/MaterialAlertDialog.Material3.Title.Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="4dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/add_product"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Novo item" />
+        tools:text="@string/add_product" />
 
-    <EditText
-        android:id="@+id/et_name_item"
-        style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ti_name_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="4dp"
+        android:layout_marginVertical="8dp"
         android:hint="Nome do item"
-        android:inputType="textCapWords"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_dialog_title" />
+        app:layout_constraintTop_toBottomOf="@id/tv_dialog_title">
 
-    <EditText
-        android:id="@+id/et_unit_price"
-        style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+        <com.google.android.material.textfield.TextInputEditText
+            id="@+id/et_name_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ti_unit_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="4dp"
-        android:hint="R$"
-        android:inputType="numberDecimal"
+        android:layout_marginVertical="8dp"
+        android:hint="Preço"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_name_item" />
+        app:layout_constraintTop_toBottomOf="@+id/ti_name_item">
 
-    <EditText
-        android:id="@+id/et_amount"
-        style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+        <com.google.android.material.textfield.TextInputEditText
+            id="@+id/et_unit_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ti_amount"
         android:layout_width="match_parent"
+        android:layout_marginVertical="8dp"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="4dp"
-        android:hint="Unidade/Peso"
-        android:inputType="numberDecimal"
+        android:hint="Quantidade Un/Kg"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_unit_price" />
+        app:layout_constraintTop_toBottomOf="@id/ti_unit_price">
+
+        <com.google.android.material.textfield.TextInputEditText
+            id="@+id/et_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

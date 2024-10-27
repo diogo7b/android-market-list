@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Market_List</string>
+    <string name="app_name">_Market List</string>
     <string name="title_lists">Listas</string>
     <string name="desc_add_button">add list button</string>
     <string name="new_list">Nova Lista</string>
@@ -8,4 +8,5 @@
     <string name="error_message">Ocorreu um erro</string>
     <string name="title_update_dialog">Novo título</string>
     <string name="empty_field">Campo Vazio</string>
+    <string name="add_product">Adicionar Produto</string>
 </resources>

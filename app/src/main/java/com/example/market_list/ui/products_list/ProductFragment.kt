@@ -2,7 +2,6 @@ package com.example.market_list.ui.products_list
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,7 +76,7 @@ class ProductFragment : Fragment() {
         }
     }
 
-    private fun calcTotal(products: List<ProductDomain>) = products.sumOf { it.totalPrice }
+    private fun calcTotal(products: List<ProductDomain>) = products.sumOf { it.price }
 
     private fun setupViewer() {
         binding.mtDetailList.title = args.listName
@@ -88,11 +87,20 @@ class ProductFragment : Fragment() {
     }
 
     private fun setupListener() {
-        setFragmentResultListener(ProductDialog.FRAGMENT_RESULT) { _, bundle ->
+        setFragmentResultListener(ProductDialog.FRAGMENT_RESULT_CREATE) { _, bundle ->
             val name = bundle.getString(ProductDialog.NAME_ITEM_VALUE) ?: ""
             val price = bundle.getString(ProductDialog.UNIT_PRICE_VALUE) ?: ""
             val amount = bundle.getString(ProductDialog.AMOUNT_VALUE) ?: ""
             viewModel.insertProduct(name, price, amount, args.id)
+        }
+
+        setFragmentResultListener(UpdateProductDialog.FRAGMENT_RESULT_UPDATE) { _, bundle ->
+            val name = bundle.getString(ProductDialog.NAME_ITEM_VALUE) ?: ""
+            val price = bundle.getString(ProductDialog.UNIT_PRICE_VALUE) ?: ""
+            val amount = bundle.getString(ProductDialog.AMOUNT_VALUE) ?: ""
+            viewModel.updateProduct(
+                idProductInUpdate, name, price.toDouble(), amount.toDouble(), args.id
+            )
         }
 
         binding.fabAddItemDetail.setOnClickListener {
