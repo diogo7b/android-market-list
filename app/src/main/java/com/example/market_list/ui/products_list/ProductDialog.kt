@@ -24,16 +24,14 @@ class ProductDialog : DialogFragment() {
                 .setPositiveButton("Confirmar") { _, _ ->
 
                     if (
-                        binding.tiNameItem.editText?.text.isNullOrBlank() ||
-                        binding.tiUnitPrice.editText?.text.isNullOrBlank() ||
-                        binding.tiAmount.editText?.text.isNullOrBlank()
+                        binding.tiNameItem.editText?.text.isNullOrBlank()
                     ) {
-                        dismiss()
                         Toast.makeText(
                             requireContext(),
-                            "Preencha todos os campos",
+                            "Preencha o nome do produto",
                             Toast.LENGTH_LONG
                         ).show()
+                        show(parentFragmentManager)
                     } else {
                         setFragmentResult(
                             FRAGMENT_RESULT_CREATE,
@@ -44,7 +42,6 @@ class ProductDialog : DialogFragment() {
                             )
                         )
                     }
-
                 }
                 .setNegativeButton("Cancelar") { _, _ ->
                     dismiss()

@@ -21,6 +21,7 @@ class UpdateMarketListDialog : DialogFragment() {
             val listId = arguments?.getString(ID_LIST) ?: "Campo vazio"
 
             binding = MarketListDialogBinding.inflate(requireActivity().layoutInflater).apply {
+                tvDialogTitle.text = "Editar Lista"
                 etTitleList.setText(titleList)
             }
 
@@ -30,6 +31,7 @@ class UpdateMarketListDialog : DialogFragment() {
                     if (binding.etTitleList.text.toString().isBlank()) {
                         dismiss()
                     } else {
+                        binding.etTitleList.requestFocus()
                         setFragmentResult(
                             FRAGMENT_RESULT_UPDATE,
                             bundleOf(

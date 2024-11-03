@@ -18,14 +18,15 @@ class MarketListMainDialog : DialogFragment() {
 
         return activity?.let {
             binding = MarketListDialogBinding.inflate(requireActivity().layoutInflater).apply {
-                this.tvDialogTitle.setText("Nova Lista")
-                this.etTitleList.requestFocus()
+                tvDialogTitle.setText("Nova Lista")
+                etTitleList.requestFocus()
             }
 
             //para utilizar o set fragment result precisa importar a dependencia androidx.fragment:fragment-ktx
             AlertDialog.Builder(it).setView(binding.root)
                 .setPositiveButton("Confirmar") { _, _ ->
                     if (binding.etTitleList.text.toString().isNotBlank()) {
+                        binding.etTitleList.requestFocus()
                         setFragmentResult(
                             FRAGMENT_RESULT_CREATE, bundleOf(
                                 EDIT_TEXT_VALUE to binding.etTitleList.text.toString()
