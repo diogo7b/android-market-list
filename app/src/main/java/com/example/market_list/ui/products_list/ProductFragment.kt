@@ -53,31 +53,15 @@ class ProductFragment : Fragment() {
     private fun setupObserveState() {
         viewModel.state.observe(viewLifecycleOwner) {
             when (it) {
-                ProductState.Loading -> {
-                    loadingState()
-                }
-
-                ProductState.Empty -> {
-                    emptyState()
-                }
-
-                is ProductState.Error -> {
-                    errorState()
-                }
-
-                is ProductState.Success -> {
-                    successState(it.list)
-                    var totalListPrice = String.format(
-                        "%.2f", calcTotal(it.list.products)
-                    )
-                    binding.tvValorTotalValue.text = "R$ $totalListPrice"
-                }
+                ProductState.Loading -> showLoadingState()
+                ProductState.Empty -> showEmptyState()
+                is ProductState.Error -> showErrorState()
+                is ProductState.Success -> showSuccessState(it.list)
             }
         }
     }
 
-    private fun calcTotal(products: List<ProductDomain>) = products.sumOf { it.price }
-
+    // Setups
     private fun setupViewer() {
         binding.mtDetailList.title = args.listName
     }
@@ -104,57 +88,77 @@ class ProductFragment : Fragment() {
         }
 
         binding.fabAddItemDetail.setOnClickListener {
-            handleShowDialog()
+            handleCreateProductDialog()
+        }
+
+        adapter.apply {
+            update = { product -> handleUpdateProductDialog(product) }
+
+            delete = { product -> viewModel.deleteProduct(product) }
         }
 
         binding.mtDetailList.setNavigationOnClickListener {
-            val action = ProductFragmentDirections.goToMarketListFragment()
-            findNavController().navigate(action)
-        }
-
-        adapter.longClick = { item ->
-            idProductInUpdate = item.id
-            UpdateProductDialog.show(item, parentFragmentManager)
+            handleBackScreen()
         }
     }
 
-    private fun handleShowDialog() {
+    // Navigation and Dialog
+    private fun handleBackScreen() {
+        val action = ProductFragmentDirections.goToMarketListFragment()
+        findNavController().navigate(action)
+    }
+
+    private fun handleUpdateProductDialog(item: ProductDomain) {
+        idProductInUpdate = item.id
+        UpdateProductDialog.show(item, parentFragmentManager)
+    }
+
+    private fun handleCreateProductDialog() {
         ProductDialog.show(parentFragmentManager)
     }
 
-    fun <T> Flow<T>.observe(owner: LifecycleOwner, observe: (T) -> Unit) {
+    // States
+    private fun showEmptyState() = with(binding) {
+        rcDetailList.isVisible = false
+        tvTitleEmptyList.isVisible = true
+        tvValorTotalValue.isVisible = false
+        tvTitleEmptyList.text = getString(R.string.no_products)
+        pbLoading.isVisible = false
+    }
+
+    private fun showErrorState() = with(binding) {
+        rcDetailList.isVisible = false
+        tvTitleEmptyList.isVisible = true
+        tvTitleEmptyList.text = getString(R.string.error_message)
+        tvValorTotalValue.isVisible = false
+    }
+
+    private fun showLoadingState() = with(binding) {
+        pbLoading.isVisible = true
+        rcDetailList.isVisible = false
+        tvTitleEmptyList.isVisible = false
+        tvValorTotalValue.isVisible = false
+    }
+
+    @SuppressLint("DefaultLocale")
+    private fun showSuccessState(list: FullListDomain) = with(binding) {
+        pbLoading.isVisible = false
+        rcDetailList.isVisible = true
+        tvTitleEmptyList.isVisible = false
+        tvValorTotalValue.isVisible = true
+        val totalListPriceFormatted = String.format(
+            "%.2f", calcTotal(list.products)
+        )
+        tvValorTotalValue.text = getString(R.string.currency, totalListPriceFormatted)
+        adapter.submitList(list.products)
+    }
+
+    private fun <T> Flow<T>.observe(owner: LifecycleOwner, observe: (T) -> Unit) {
         owner.lifecycleScope.launch {
             this@observe.collect(observe)
         }
     }
 
-    private fun emptyState() {
-        binding.rcDetailList.isVisible = false
-        binding.tvTitleEmptyList.isVisible = true
-        binding.tvValorTotalValue.isVisible = false
-        binding.pbLoading.isVisible = false
-    }
-
-    private fun errorState() {
-        binding.rcDetailList.isVisible = false
-        binding.tvTitleEmptyList.isVisible = true
-        binding.tvTitleEmptyList.text = getString(R.string.error_message)
-        binding.tvValorTotalValue.isVisible = false
-    }
-
-    private fun loadingState() {
-        binding.pbLoading.isVisible = true
-        binding.rcDetailList.isVisible = false
-        binding.tvTitleEmptyList.isVisible = false
-        binding.tvValorTotalValue.isVisible = false
-    }
-
-    private fun successState(list: FullListDomain) {
-        binding.pbLoading.isVisible = false
-        binding.rcDetailList.isVisible = true
-        binding.tvTitleEmptyList.isVisible = false
-        binding.tvValorTotalValue.isVisible = true
-        adapter.submitList(list.products)
-    }
+    private fun calcTotal(products: List<ProductDomain>) = products.sumOf { it.price }
 }
 

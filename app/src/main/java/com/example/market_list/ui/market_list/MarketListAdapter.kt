@@ -29,16 +29,14 @@ class MarketListAdapter() :
         private val binding: LayoutMarketListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: MarketListDomain) {
-            binding.tvTitleList.text = item.listName
-            binding.root.setOnClickListener {
-                click(item)
+        fun bind(list: MarketListDomain) = with(binding) {
+            tvTitleList.text = list.listName
+            root.setOnClickListener {
+                click(list)
             }
-            binding.ivDelete.setOnClickListener {
-                delete(item)
-            }
-            binding.root.setOnLongClickListener {
-                update(item)
+            ivDelete.setOnClickListener { delete(list) }
+            root.setOnLongClickListener {
+                update(list)
                 true
             }
         }

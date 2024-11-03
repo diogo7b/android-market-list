@@ -7,6 +7,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
+import com.example.market_list.R
 import com.example.market_list.databinding.ProductDialogBinding
 import com.example.market_list.domain.model.ProductDomain
 
@@ -23,6 +24,7 @@ class UpdateProductDialog : DialogFragment() {
 
             val amount = arguments?.getString(AMOUNT_VALUE) ?: "Campo vazio"
             binding = ProductDialogBinding.inflate(requireActivity().layoutInflater).apply {
+                tvDialogTitle.setText(getString(R.string.edit_product))
                 tiNameItem.editText?.setText(name)
                 tiUnitPrice.editText?.setText(price)
                 tiAmount.editText?.setText(amount)

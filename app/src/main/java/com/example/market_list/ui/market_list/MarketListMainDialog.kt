@@ -20,6 +20,7 @@ class MarketListMainDialog : DialogFragment() {
             binding = MarketListDialogBinding.inflate(requireActivity().layoutInflater).apply {
                 tvDialogTitle.setText("Nova Lista")
                 etTitleList.requestFocus()
+                etTitleList.showSoftInputOnFocus = true
             }
 
             //para utilizar o set fragment result precisa importar a dependencia androidx.fragment:fragment-ktx
