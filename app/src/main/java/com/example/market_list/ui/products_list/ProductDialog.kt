@@ -3,6 +3,7 @@ package com.example.market_list.ui.products_list
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
@@ -17,15 +18,18 @@ class ProductDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         return activity?.let {
-            binding = ProductDialogBinding.inflate(requireActivity().layoutInflater)
+            binding = ProductDialogBinding.inflate(requireActivity().layoutInflater).apply {
+                tiNameItem.requestFocus()
+            }
 
             AlertDialog.Builder(it)
                 .setView(binding.root)
                 .setPositiveButton("Confirmar") { _, _ ->
+                    val name = binding.tiNameItem.editText?.text.toString()
+                    var unitPrice = binding.tiUnitPrice.editText?.text.toString()
+                    var amount = binding.tiAmount.editText?.text.toString()
 
-                    if (
-                        binding.tiNameItem.editText?.text.isNullOrBlank()
-                    ) {
+                    if (name.isBlank()) {
                         Toast.makeText(
                             requireContext(),
                             "Preencha o nome do produto",
@@ -33,12 +37,15 @@ class ProductDialog : DialogFragment() {
                         ).show()
                         show(parentFragmentManager)
                     } else {
+                        unitPrice = unitPrice.ifBlank { "0.0" }
+                        amount = amount.ifBlank { "0.0" }
+
                         setFragmentResult(
                             FRAGMENT_RESULT_CREATE,
                             bundleOf(
-                                NAME_ITEM_VALUE to binding.tiNameItem.editText?.text.toString(),
-                                UNIT_PRICE_VALUE to binding.tiUnitPrice.editText?.text.toString(),
-                                AMOUNT_VALUE to binding.tiAmount.editText?.text.toString()
+                                NAME_ITEM_VALUE to name,
+                                UNIT_PRICE_VALUE to unitPrice,
+                                AMOUNT_VALUE to amount
                             )
                         )
                     }
