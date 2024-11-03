@@ -9,4 +9,7 @@
     <string name="title_update_dialog">Novo título</string>
     <string name="empty_field">Campo Vazio</string>
     <string name="add_product">Adicionar Produto</string>
+    <string name="no_products">Sem produtos na lista</string>
+    <string name="currency">R$ %1$s</string>
+    <string name="edit_product">Editar Produto</string>
 </resources>
